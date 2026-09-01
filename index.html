@@ -1,2269 +1,1784 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MCQ Answer Sheet</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
+<title>MCQ Answer Sheet</title>
+
+<style>
     :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --primary-light: #eff6ff;
-
-      --background: #f4f6f8;
-      --surface: #ffffff;
-      --border: #d9dee7;
-      --text: #172033;
-      --muted: #667085;
-
-      --correct: #15803d;
-      --correct-bg: #f0fdf4;
-
-      --incorrect: #dc2626;
-      --incorrect-bg: #fef2f2;
-
-      --sidebar-width: 290px;
-      --header-height: 70px;
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --selected: #dbeafe;
+        --background: #f4f6f8;
+        --white: #ffffff;
+        --border: #d7dce3;
+        --text: #172033;
+        --muted: #667085;
+        --correct: #16a34a;
+        --incorrect: #dc2626;
+        --warning: #f59e0b;
     }
 
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-      background: var(--background);
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    button {
-      font: inherit;
+        margin: 0;
+        background: var(--background);
+        color: var(--text);
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Arial,
+            sans-serif;
     }
 
     /* =========================
        HEADER
-       ========================= */
+    ========================= */
 
-    .header {
-      height: var(--header-height);
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+        height: 70px;
 
-      padding: 0 24px;
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
 
-      position: sticky;
-      top: 0;
-      z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 24px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 20px;
-      font-weight: 700;
+    .title-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: var(--primary);
-      color: white;
+    .logo {
+        width: 38px;
+        height: 38px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        background: var(--primary);
+        color: white;
 
-      font-weight: 800;
+        border-radius: 9px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: 800;
+        font-size: 18px;
     }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+    h1 {
+        margin: 0;
+        font-size: 20px;
     }
 
-    .timer {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-
-      padding: 8px 14px;
-
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
+    .header-info {
+        display: flex;
+        gap: 10px;
+        align-items: center;
     }
 
-    /* =========================
-       LAYOUT
-       ========================= */
+    .counter {
+        padding: 8px 13px;
 
-    .app {
-      display: flex;
-      min-height: calc(100vh - var(--header-height));
-    }
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        border-radius: 8px;
 
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-
-      padding: 22px;
-
-      position: fixed;
-      top: var(--header-height);
-      bottom: 0;
-      left: 0;
-
-      overflow-y: auto;
-    }
-
-    .main {
-      margin-left: var(--sidebar-width);
-      width: calc(100% - var(--sidebar-width));
-
-      padding: 32px;
-
-      display: flex;
-      justify-content: center;
-    }
-
-    .content {
-      width: 100%;
-      max-width: 900px;
+        font-size: 14px;
+        font-weight: 600;
     }
 
     /* =========================
-       SIDEBAR
-       ========================= */
+       MAIN
+    ========================= */
 
-    .sidebar-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 14px;
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+
+        padding: 25px 20px 50px;
     }
 
-    .progress-container {
-      margin-bottom: 24px;
+    .instructions {
+        background: var(--white);
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        padding: 18px 20px;
+
+        margin-bottom: 18px;
+
+        color: var(--muted);
+        font-size: 14px;
     }
 
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 7px;
+    .instructions strong {
+        color: var(--text);
     }
 
-    .progress-bar {
-      height: 7px;
-      background: #e9edf3;
-      border-radius: 10px;
-      overflow: hidden;
+    /* =========================
+       ANSWER SHEET
+    ========================= */
+
+    .sheet {
+        background: var(--white);
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 2px 6px rgba(0,0,0,0.03);
     }
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--primary);
-      transition: width 0.25s ease;
+    .sheet-header {
+        display: grid;
+
+        grid-template-columns: 100px repeat(5, 1fr);
+
+        background: #f8fafc;
+
+        border-bottom: 2px solid var(--border);
+
+        font-weight: 700;
+        text-align: center;
     }
 
-    .question-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
+    .sheet-header div {
+        padding: 14px 8px;
+    }
+
+    .question-column {
+        text-align: center;
+    }
+
+    .answer-row {
+        display: grid;
+
+        grid-template-columns: 100px repeat(5, 1fr);
+
+        border-bottom: 1px solid #e7eaf0;
+
+        min-height: 62px;
+
+        transition: background 0.15s;
+    }
+
+    .answer-row:last-child {
+        border-bottom: none;
+    }
+
+    .answer-row:hover {
+        background: #fafcff;
     }
 
     .question-number {
-      width: 100%;
-      aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-      border: 1px solid var(--border);
-      border-radius: 7px;
+        font-weight: 700;
 
-      background: white;
-      color: var(--text);
-
-      cursor: pointer;
-
-      font-size: 13px;
-      font-weight: 600;
-
-      transition: 0.15s;
+        border-right: 1px solid #e7eaf0;
     }
 
-    .question-number:hover {
-      border-color: var(--primary);
+    .answer-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
+        border-right: 1px solid #eef0f4;
+
+        position: relative;
     }
 
-    .question-number.current {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .question-number.answered {
-      background: #dbeafe;
-      color: #1d4ed8;
-      border-color: #bfdbfe;
-    }
-
-    .question-number.current.answered {
-      background: var(--primary);
-      color: white;
-    }
-
-    .question-number.flagged {
-      position: relative;
-    }
-
-    .question-number.flagged::after {
-      content: "";
-      position: absolute;
-
-      width: 6px;
-      height: 6px;
-
-      background: #f59e0b;
-      border-radius: 50%;
-
-      top: 3px;
-      right: 3px;
-    }
-
-    .sidebar-actions {
-      margin-top: 26px;
-      display: grid;
-      gap: 10px;
+    .answer-cell:last-child {
+        border-right: none;
     }
 
     /* =========================
-       QUESTION CARD
-       ========================= */
+       BULLET / RADIO
+    ========================= */
 
-    .question-card {
-      background: var(--surface);
+    .bubble {
+        width: 27px;
+        height: 27px;
 
-      border: 1px solid var(--border);
-      border-radius: 14px;
+        border: 2px solid #98a2b3;
 
-      padding: 32px;
+        border-radius: 50%;
 
-      box-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition:
+            background 0.12s,
+            border-color 0.12s,
+            transform 0.12s;
     }
 
-    .question-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      margin-bottom: 22px;
+    .answer-cell:hover .bubble {
+        border-color: var(--primary);
+        transform: scale(1.08);
     }
 
-    .question-count {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
+    .answer-cell.selected {
+        background: var(--selected);
     }
 
-    .flag-button {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-
-      cursor: pointer;
-
-      padding: 6px 10px;
-      border-radius: 7px;
+    .answer-cell.selected .bubble {
+        border-color: var(--primary);
+        background: var(--primary);
     }
 
-    .flag-button:hover {
-      background: #f8fafc;
-    }
+    .answer-cell.selected .bubble::after {
+        content: "";
 
-    .flag-button.active {
-      color: #d97706;
-      background: #fffbeb;
-    }
+        width: 9px;
+        height: 9px;
 
-    .question-text {
-      font-size: 21px;
-      line-height: 1.55;
-      font-weight: 650;
+        background: white;
 
-      margin: 0 0 28px;
+        border-radius: 50%;
     }
 
     /* =========================
-       ANSWERS
-       ========================= */
+       FOOTER CONTROLS
+    ========================= */
 
-    .answers {
-      display: grid;
-      gap: 12px;
+    .controls {
+        margin-top: 18px;
+
+        background: var(--white);
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        padding: 18px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
     }
 
-    .answer {
-      position: relative;
-
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-
-      padding: 16px 18px;
-
-      border: 1px solid var(--border);
-      border-radius: 10px;
-
-      cursor: pointer;
-
-      background: white;
-
-      transition:
-        border-color 0.15s,
-        background 0.15s,
-        box-shadow 0.15s;
+    .control-left,
+    .control-right {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
-    .answer:hover {
-      border-color: #93b4f5;
-      background: #fafcff;
-    }
-
-    .answer.selected {
-      border-color: var(--primary);
-      background: var(--primary-light);
-
-      box-shadow:
-        0 0 0 1px var(--primary);
-    }
-
-    .answer-radio {
-      width: 21px;
-      height: 21px;
-
-      min-width: 21px;
-
-      border: 2px solid #98a2b3;
-      border-radius: 50%;
-
-      margin-top: 1px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .answer.selected .answer-radio {
-      border-color: var(--primary);
-    }
-
-    .answer.selected .answer-radio::after {
-      content: "";
-
-      width: 9px;
-      height: 9px;
-
-      background: var(--primary);
-      border-radius: 50%;
-    }
-
-    .answer-letter {
-      font-weight: 700;
-      color: var(--muted);
-      min-width: 20px;
-    }
-
-    .answer.selected .answer-letter {
-      color: var(--primary);
-    }
-
-    .answer-text {
-      flex: 1;
-    }
-
-    /* =========================
-       NAVIGATION
-       ========================= */
-
-    .navigation {
-      display: flex;
-      justify-content: space-between;
-
-      margin-top: 20px;
-    }
-
-    .nav-right {
-      display: flex;
-      gap: 10px;
+    button {
+        font: inherit;
     }
 
     .btn {
-      border: 1px solid var(--border);
+        border: 1px solid var(--border);
 
-      background: white;
-      color: var(--text);
+        background: white;
+        color: var(--text);
 
-      border-radius: 8px;
+        border-radius: 8px;
 
-      padding: 10px 17px;
+        padding: 10px 16px;
 
-      cursor: pointer;
+        cursor: pointer;
 
-      font-weight: 650;
+        font-weight: 650;
 
-      transition: 0.15s;
+        transition: 0.15s;
     }
 
     .btn:hover {
-      background: #f8fafc;
+        background: #f8fafc;
     }
 
     .btn-primary {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: white;
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
     }
 
     .btn-primary:hover {
-      background: var(--primary-dark);
-      border-color: var(--primary-dark);
+        background: var(--primary-dark);
     }
 
     .btn-danger {
-      background: #dc2626;
-      border-color: #dc2626;
-      color: white;
+        background: white;
+        border-color: #fca5a5;
+        color: var(--incorrect);
     }
 
     .btn-danger:hover {
-      background: #b91c1c;
+        background: #fef2f2;
     }
 
-    .btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
+    .btn-warning {
+        background: #fffbeb;
+        border-color: #fcd34d;
+        color: #92400e;
     }
 
     /* =========================
-       RESULT SCREEN
-       ========================= */
+       ANSWER KEY PANEL
+    ========================= */
 
-    .result-screen {
-      display: none;
+    .answer-key-panel {
+        display: none;
+
+        margin-top: 18px;
+
+        background: var(--white);
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        padding: 22px;
+    }
+
+    .answer-key-panel.visible {
+        display: block;
+    }
+
+    .answer-key-panel h2 {
+        margin: 0 0 8px;
+        font-size: 19px;
+    }
+
+    .answer-key-panel p {
+        color: var(--muted);
+        font-size: 14px;
+        margin-top: 0;
+    }
+
+    .key-input {
+        width: 100%;
+
+        min-height: 100px;
+
+        resize: vertical;
+
+        border: 1px solid var(--border);
+        border-radius: 8px;
+
+        padding: 12px;
+
+        font-family: monospace;
+        font-size: 15px;
+
+        outline: none;
+    }
+
+    .key-input:focus {
+        border-color: var(--primary);
+
+        box-shadow:
+            0 0 0 3px rgba(37,99,235,0.10);
+    }
+
+    .key-format {
+        background: #f8fafc;
+
+        border-radius: 7px;
+
+        padding: 10px;
+
+        margin-top: 10px;
+
+        font-family: monospace;
+        font-size: 13px;
+    }
+
+    /* =========================
+       RESULTS
+    ========================= */
+
+    .results {
+        display: none;
+
+        margin-top: 18px;
+    }
+
+    .results.visible {
+        display: block;
     }
 
     .result-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 38px;
-      text-align: center;
+        background: white;
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        padding: 28px;
+
+        text-align: center;
     }
 
-    .score-circle {
-      width: 150px;
-      height: 150px;
+    .score {
+        font-size: 48px;
+        font-weight: 800;
 
-      border-radius: 50%;
+        color: var(--primary);
 
-      border: 10px solid #dbeafe;
-
-      margin: 10px auto 25px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+        margin: 5px 0;
     }
 
-    .score-number {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .score-label {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .result-title {
-      font-size: 28px;
-      margin: 0 0 8px;
-    }
-
-    .result-description {
-      color: var(--muted);
-      margin-bottom: 28px;
+    .score-description {
+        color: var(--muted);
     }
 
     .result-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+        display: grid;
 
-      margin: 25px 0;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 12px;
+
+        margin-top: 22px;
     }
 
     .stat {
-      padding: 17px;
+        border: 1px solid var(--border);
 
-      border: 1px solid var(--border);
-      border-radius: 9px;
+        border-radius: 9px;
 
-      background: #fafafa;
+        padding: 15px;
     }
 
-    .stat-value {
-      font-size: 24px;
-      font-weight: 800;
+    .stat-number {
+        font-size: 25px;
+        font-weight: 800;
     }
 
     .stat-label {
-      font-size: 12px;
-      color: var(--muted);
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    .correct-number {
+        color: var(--correct);
+    }
+
+    .incorrect-number {
+        color: var(--incorrect);
+    }
+
+    .unanswered-number {
+        color: var(--warning);
     }
 
     /* =========================
-       REVIEW
-       ========================= */
+       REVIEW GRID
+    ========================= */
 
-    .review-section {
-      margin-top: 28px;
-      text-align: left;
+    .review {
+        margin-top: 25px;
+
+        text-align: left;
+    }
+
+    .review h3 {
+        margin-bottom: 12px;
+    }
+
+    .review-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fill, minmax(75px, 1fr));
+
+        gap: 7px;
     }
 
     .review-item {
-      border: 1px solid var(--border);
-      border-radius: 10px;
+        border: 1px solid var(--border);
 
-      padding: 18px;
+        border-radius: 7px;
 
-      margin-bottom: 12px;
+        padding: 8px 5px;
+
+        text-align: center;
+
+        font-size: 12px;
     }
 
     .review-item.correct {
-      background: var(--correct-bg);
-      border-color: #bbf7d0;
+        background: #f0fdf4;
+        border-color: #86efac;
+        color: var(--correct);
     }
 
     .review-item.incorrect {
-      background: var(--incorrect-bg);
-      border-color: #fecaca;
+        background: #fef2f2;
+        border-color: #fca5a5;
+        color: var(--incorrect);
     }
 
-    .review-question {
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .review-answer {
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .correct-text {
-      color: var(--correct);
-      font-weight: 700;
-    }
-
-    .incorrect-text {
-      color: var(--incorrect);
-      font-weight: 700;
-    }
-
-    /* =========================
-       MODAL
-       ========================= */
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-
-      background: rgba(15, 23, 42, 0.45);
-
-      display: none;
-      align-items: center;
-      justify-content: center;
-
-      z-index: 1000;
-
-      padding: 20px;
-    }
-
-    .modal {
-      background: white;
-
-      width: 100%;
-      max-width: 440px;
-
-      border-radius: 13px;
-
-      padding: 28px;
-
-      box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal h2 {
-      margin-top: 0;
-    }
-
-    .modal p {
-      color: var(--muted);
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-
-      margin-top: 25px;
+    .review-item.unanswered {
+        background: #fffbeb;
+        border-color: #fcd34d;
+        color: #92400e;
     }
 
     /* =========================
        MOBILE
-       ========================= */
+    ========================= */
 
-    .mobile-sidebar-toggle {
-      display: none;
+    @media (max-width: 650px) {
+
+        header {
+            height: 62px;
+            padding: 0 12px;
+        }
+
+        h1 {
+            font-size: 16px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        .counter {
+            font-size: 12px;
+            padding: 7px 9px;
+        }
+
+        .container {
+            padding: 15px 8px 30px;
+        }
+
+        .sheet-header,
+        .answer-row {
+            grid-template-columns:
+                60px repeat(5, 1fr);
+        }
+
+        .sheet-header div {
+            padding: 11px 3px;
+            font-size: 13px;
+        }
+
+        .answer-row {
+            min-height: 53px;
+        }
+
+        .question-number {
+            font-size: 13px;
+        }
+
+        .bubble {
+            width: 23px;
+            height: 23px;
+        }
+
+        .answer-cell.selected .bubble::after {
+            width: 8px;
+            height: 8px;
+        }
+
+        .controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .control-left,
+        .control-right {
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+        }
+
+        .result-stats {
+            grid-template-columns: 1fr;
+        }
     }
-
-    @media (max-width: 800px) {
-      :root {
-        --header-height: 62px;
-      }
-
-      .header {
-        padding: 0 14px;
-      }
-
-      .brand {
-        font-size: 17px;
-      }
-
-      .brand-icon {
-        width: 32px;
-        height: 32px;
-      }
-
-      .mobile-sidebar-toggle {
-        display: block;
-
-        border: 1px solid var(--border);
-        background: white;
-
-        border-radius: 7px;
-
-        padding: 6px 9px;
-
-        cursor: pointer;
-      }
-
-      .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.2s;
-
-        z-index: 200;
-
-        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
-      .main {
-        margin-left: 0;
-        width: 100%;
-        padding: 18px 12px;
-      }
-
-      .question-card {
-        padding: 22px 17px;
-      }
-
-      .question-text {
-        font-size: 18px;
-      }
-
-      .timer {
-        padding: 6px 9px;
-        font-size: 13px;
-      }
-
-      .result-stats {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
-  <!-- =========================
-       HEADER
-       ========================= -->
+<!-- =========================
+     HEADER
+========================= -->
 
-  <header class="header">
+<header>
 
-    <div class="brand">
-      <button
-        class="mobile-sidebar-toggle"
-        id="mobileSidebarButton"
-        onclick="toggleSidebar()"
-        aria-label="Open question navigator"
-      >
-        ☰
-      </button>
+    <div class="title-area">
 
-      <div class="brand-icon">Q</div>
-      <span id="examTitle">MCQ Answer Sheet</span>
-    </div>
+        <div class="logo">
+            Q
+        </div>
 
-    <div class="header-right">
-
-      <div class="timer" id="timer">
-        60:00
-      </div>
+        <h1>
+            MCQ Answer Sheet
+        </h1>
 
     </div>
 
-  </header>
-
-
-  <!-- =========================
-       APPLICATION
-       ========================= -->
-
-  <div class="app">
-
-    <!-- SIDEBAR -->
-
-    <aside class="sidebar" id="sidebar">
-
-      <div class="sidebar-title">
-        Questions
-      </div>
-
-      <div class="progress-container">
-
-        <div class="progress-label">
-          <span>Progress</span>
-          <span id="progressText">0%</span>
-        </div>
-
-        <div class="progress-bar">
-          <div
-            class="progress-fill"
-            id="progressFill"
-          ></div>
-        </div>
-
-      </div>
-
-      <div
-        class="question-grid"
-        id="questionGrid"
-      ></div>
-
-      <div class="sidebar-actions">
-
-        <button
-          class="btn"
-          onclick="clearCurrentAnswer()"
-        >
-          Clear Answer
-        </button>
-
-        <button
-          class="btn btn-danger"
-          onclick="confirmSubmit()"
-        >
-          Submit Exam
-        </button>
-
-      </div>
-
-    </aside>
-
-
-    <!-- MAIN CONTENT -->
-
-    <main class="main">
-
-      <div class="content">
-
-        <!-- QUESTION AREA -->
-
-        <div id="examScreen">
-
-          <div class="question-card">
-
-            <div class="question-meta">
-
-              <div
-                class="question-count"
-                id="questionCount"
-              >
-                Question 1 of 10
-              </div>
-
-              <button
-                class="flag-button"
-                id="flagButton"
-                onclick="toggleFlag()"
-              >
-                ⚑ Flag for Review
-              </button>
-
-            </div>
-
-
-            <h1
-              class="question-text"
-              id="questionText"
-            >
-            </h1>
-
-
-            <div
-              class="answers"
-              id="answers"
-            ></div>
-
-          </div>
-
-
-          <div class="navigation">
-
-            <button
-              class="btn"
-              id="previousButton"
-              onclick="previousQuestion()"
-            >
-              ← Previous
-            </button>
-
-            <div class="nav-right">
-
-              <button
-                class="btn"
-                onclick="clearCurrentAnswer()"
-              >
-                Clear
-              </button>
-
-              <button
-                class="btn btn-primary"
-                id="nextButton"
-                onclick="nextQuestion()"
-              >
-                Next →
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- RESULT SCREEN -->
+    <div class="header-info">
 
         <div
-          class="result-screen"
-          id="resultScreen"
+            class="counter"
+            id="answeredCounter"
         >
+            0 / 100 answered
+        </div>
 
-          <div class="result-card">
+    </div>
 
-            <div class="score-circle">
+</header>
 
-              <div
-                class="score-number"
-                id="scorePercentage"
-              >
-                0%
-              </div>
 
-              <div class="score-label">
-                Score
-              </div>
+<!-- =========================
+     MAIN
+========================= -->
 
+<div class="container">
+
+
+    <div class="instructions">
+
+        <strong>How to use:</strong>
+        Read your questions from your book and click
+        <strong>A, B, C, D, or E</strong> for each question.
+        No question text needs to be entered here.
+        Your answers are automatically saved in this browser.
+
+    </div>
+
+
+    <!-- =========================
+         ANSWER SHEET
+    ========================= -->
+
+    <div class="sheet">
+
+        <div class="sheet-header">
+
+            <div>
+                Question
             </div>
 
-            <h2
-              class="result-title"
-              id="resultTitle"
-            >
-              Exam Complete
-            </h2>
+            <div>A</div>
+            <div>B</div>
+            <div>C</div>
+            <div>D</div>
+            <div>E</div>
 
-            <p
-              class="result-description"
-              id="resultDescription"
+        </div>
+
+
+        <div id="answerSheet">
+            <!-- Rows generated by JavaScript -->
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         CONTROLS
+    ========================= -->
+
+    <div class="controls">
+
+        <div class="control-left">
+
+            <button
+                class="btn"
+                onclick="clearLastAnswer()"
             >
-            </p>
+                Undo Last
+            </button>
+
+            <button
+                class="btn btn-warning"
+                onclick="clearAllAnswers()"
+            >
+                Clear All
+            </button>
+
+        </div>
+
+
+        <div class="control-right">
+
+            <button
+                class="btn btn-primary"
+                onclick="toggleAnswerKey()"
+            >
+                Check Answers
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ANSWER KEY
+    ========================= -->
+
+    <div
+        class="answer-key-panel"
+        id="answerKeyPanel"
+    >
+
+        <h2>
+            Enter Answer Key
+        </h2>
+
+        <p>
+            Enter the correct answers from your book.
+            You can enter them as a continuous sequence
+            or as numbered answers.
+        </p>
+
+
+        <textarea
+            class="key-input"
+            id="answerKey"
+            placeholder="Example:
+
+1 A
+2 C
+3 B
+4 D
+5 E
+
+or simply:
+
+ACBDE..."
+        ></textarea>
+
+
+        <div class="key-format">
+
+            Accepted formats:
+            <br><br>
+
+            <strong>Numbered:</strong>
+            1A 2C 3B 4D 5E
+
+            <br>
+
+            <strong>Sequence:</strong>
+            ACBDE...
+
+        </div>
+
+
+        <div style="margin-top:15px; display:flex; gap:10px;">
+
+            <button
+                class="btn"
+                onclick="closeAnswerKey()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="checkAnswers()"
+            >
+                Calculate Score
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         RESULTS
+    ========================= -->
+
+    <div
+        class="results"
+        id="results"
+    >
+
+        <div class="result-card">
+
+            <div>
+                Your Score
+            </div>
+
+            <div
+                class="score"
+                id="score"
+            >
+                0%
+            </div>
+
+            <div
+                class="score-description"
+                id="scoreDescription"
+            >
+            </div>
 
 
             <div class="result-stats">
 
-              <div class="stat">
-                <div
-                  class="stat-value"
-                  id="correctCount"
-                >
-                  0
-                </div>
-                <div class="stat-label">
-                  Correct
-                </div>
-              </div>
+                <div class="stat">
 
-              <div class="stat">
-                <div
-                  class="stat-value"
-                  id="incorrectCount"
-                >
-                  0
-                </div>
-                <div class="stat-label">
-                  Incorrect
-                </div>
-              </div>
+                    <div
+                        class="stat-number correct-number"
+                        id="correctCount"
+                    >
+                        0
+                    </div>
 
-              <div class="stat">
-                <div
-                  class="stat-value"
-                  id="unansweredCount"
-                >
-                  0
+                    <div class="stat-label">
+                        Correct
+                    </div>
+
                 </div>
-                <div class="stat-label">
-                  Unanswered
+
+
+                <div class="stat">
+
+                    <div
+                        class="stat-number incorrect-number"
+                        id="incorrectCount"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Incorrect
+                    </div>
+
                 </div>
-              </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="stat-number unanswered-number"
+                        id="unansweredCount"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Unanswered
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <button
-              class="btn btn-primary"
-              onclick="restartExam()"
-            >
-              Restart Exam
-            </button>
+            <!-- QUESTION REVIEW -->
 
+            <div class="review">
 
-            <div class="review-section">
+                <h3>
+                    Question Review
+                </h3>
 
-              <h3>
-                Question Review
-              </h3>
-
-              <div id="reviewList"></div>
+                <div
+                    class="review-grid"
+                    id="reviewGrid"
+                ></div>
 
             </div>
 
-          </div>
+
+            <div style="margin-top:22px;">
+
+                <button
+                    class="btn"
+                    onclick="hideResults()"
+                >
+                    Back to Answer Sheet
+                </button>
+
+            </div>
 
         </div>
 
-      </div>
-
-    </main>
-
-  </div>
-
-
-  <!-- =========================
-       SUBMIT MODAL
-       ========================= -->
-
-  <div
-    class="modal-overlay"
-    id="submitModal"
-  >
-
-    <div class="modal">
-
-      <h2>
-        Submit Exam?
-      </h2>
-
-      <p id="submitMessage">
-        Are you sure you want to submit?
-      </p>
-
-      <div class="modal-actions">
-
-        <button
-          class="btn"
-          onclick="closeModal()"
-        >
-          Cancel
-        </button>
-
-        <button
-          class="btn btn-danger"
-          onclick="submitExam()"
-        >
-          Submit
-        </button>
-
-      </div>
-
     </div>
 
-  </div>
+</div>
 
 
-  <script>
+<script>
 
-    /* =========================================================
-       EXAM CONFIGURATION
-       =========================================================
+/* =========================================================
+   CONFIGURATION
+========================================================= */
 
-       EDIT THIS SECTION TO ADD YOUR OWN QUESTIONS.
+const TOTAL_QUESTIONS = 100;
 
-       Each question has:
 
-       question:
-         The question displayed to the user.
+/* =========================================================
+   STATE
+========================================================= */
 
-       options:
-         Array of answer choices.
+let answers =
+    new Array(TOTAL_QUESTIONS).fill(null);
 
-       correct:
-         Zero-based index of the correct answer.
+let lastAnsweredQuestion = null;
 
-         0 = A
-         1 = B
-         2 = C
-         3 = D
-         4 = E
 
-       explanation:
-         Optional explanation shown during review.
+/* =========================================================
+   LOAD SAVED ANSWERS
+========================================================= */
 
-       ========================================================= */
+function loadAnswers() {
 
-    const examConfig = {
+    const saved =
+        localStorage.getItem(
+            "mcqAnswerSheetAnswers"
+        );
 
-      title: "Cardiology Practice Examination",
+    if (saved) {
 
-      timeLimitMinutes: 60,
+        try {
 
-      questions: [
+            const parsed =
+                JSON.parse(saved);
 
-        {
-          question:
-            "Which of the following is the most common cause of secondary hypertension?",
+            if (
+                Array.isArray(parsed) &&
+                parsed.length === TOTAL_QUESTIONS
+            ) {
 
-          options: [
-            "Renal parenchymal disease",
-            "Primary hyperaldosteronism",
-            "Renal artery stenosis",
-            "Pheochromocytoma",
-            "Cushing syndrome"
-          ],
+                answers = parsed;
 
-          correct: 0,
+            }
 
-          explanation:
-            "Renal parenchymal disease is one of the most common causes of secondary hypertension."
-        },
+        } catch (error) {
 
+            console.log(
+                "Could not load saved answers."
+            );
 
-        {
-          question:
-            "Which coronary artery most commonly supplies the AV node in a right-dominant coronary circulation?",
-
-          options: [
-            "Left anterior descending artery",
-            "Left circumflex artery",
-            "Right coronary artery",
-            "Left main coronary artery",
-            "Diagonal artery"
-          ],
-
-          correct: 2,
-
-          explanation:
-            "In a right-dominant circulation, the AV nodal artery usually arises from the right coronary artery."
-        },
-
-
-        {
-          question:
-            "Which ECG finding is most characteristic of hyperkalemia?",
-
-          options: [
-            "Delta waves",
-            "Peaked T waves",
-            "U waves",
-            "Short PR interval",
-            "ST elevation in V1–V3"
-          ],
-
-          correct: 1,
-
-          explanation:
-            "Early hyperkalemia classically produces tall, narrow, peaked T waves."
-        },
-
-
-        {
-          question:
-            "Which of the following is the preferred initial imaging modality for suspected aortic stenosis?",
-
-          options: [
-            "Cardiac MRI",
-            "Cardiac CT",
-            "Transthoracic echocardiography",
-            "TEE",
-            "Nuclear perfusion imaging"
-          ],
-
-          correct: 2,
-
-          explanation:
-            "Transthoracic echocardiography is the standard initial imaging test for suspected aortic stenosis."
-        },
-
-
-        {
-          question:
-            "Which chamber is primarily affected in isolated pulmonary hypertension?",
-
-          options: [
-            "Left atrium",
-            "Left ventricle",
-            "Right atrium",
-            "Right ventricle",
-            "Left ventricular outflow tract"
-          ],
-
-          correct: 3,
-
-          explanation:
-            "Pulmonary hypertension increases RV afterload and can lead to right ventricular hypertrophy and dysfunction."
-        },
-
-
-        {
-          question:
-            "Which of the following is a Class I indication for an ICD in an appropriate patient with reduced LVEF?",
-
-          options: [
-            "LVEF 55% without symptoms",
-            "LVEF 50% with PVCs",
-            "LVEF ≤35% despite guideline-directed therapy with appropriate clinical criteria",
-            "Sinus bradycardia alone",
-            "First-degree AV block alone"
-          ],
-
-          correct: 2,
-
-          explanation:
-            "Primary prevention ICD therapy is appropriate in selected patients with significantly reduced LVEF despite optimal guideline-directed medical therapy."
-        },
-
-
-        {
-          question:
-            "Which echocardiographic parameter is most directly used to estimate pulmonary artery systolic pressure?",
-
-          options: [
-            "Mitral E velocity",
-            "Tricuspid regurgitation velocity",
-            "Aortic valve area",
-            "Mitral annular plane systolic excursion",
-            "Left atrial volume"
-          ],
-
-          correct: 1,
-
-          explanation:
-            "TR jet velocity is used with an estimate of right atrial pressure to estimate pulmonary artery systolic pressure."
-        },
-
-
-        {
-          question:
-            "Which of the following is most characteristic of constrictive pericarditis?",
-
-          options: [
-            "Marked respiratory variation in ventricular filling",
-            "Severe isolated LV dilation",
-            "Fixed splitting of S2",
-            "Low cardiac output only during exercise",
-            "Severe LV outflow obstruction"
-          ],
-
-          correct: 0,
-
-          explanation:
-            "Enhanced ventricular interdependence and respiratory variation in ventricular filling are characteristic findings."
-        },
-
-
-        {
-          question:
-            "In a patient with STEMI, what is the preferred strategy when timely primary PCI is available?",
-
-          options: [
-            "Immediate CABG in all patients",
-            "Primary PCI",
-            "Elective stress testing",
-            "Observation",
-            "Delayed angiography after 7 days"
-          ],
-
-          correct: 1,
-
-          explanation:
-            "Primary PCI is the preferred reperfusion strategy when it can be performed within recommended time limits."
-        },
-
-
-        {
-          question:
-            "Which coronary artery is most commonly involved in an inferior myocardial infarction?",
-
-          options: [
-            "Right coronary artery",
-            "Left main coronary artery",
-            "Left anterior descending artery",
-            "Diagonal artery",
-            "Obtuse marginal artery"
-          ],
-
-          correct: 0,
-
-          explanation:
-            "The RCA is the most common culprit artery in inferior myocardial infarction, although the LCx can also be responsible."
         }
 
-      ]
+    }
 
-    };
-
-
-    /* =========================================================
-       APPLICATION STATE
-       ========================================================= */
-
-    let currentQuestion = 0;
-
-    let answers = new Array(
-      examConfig.questions.length
-    ).fill(null);
-
-    let flagged = new Array(
-      examConfig.questions.length
-    ).fill(false);
-
-    let submitted = false;
-
-    let timeRemaining =
-      examConfig.timeLimitMinutes * 60;
-
-    let timerInterval;
+}
 
 
-    /* =========================================================
-       INITIALIZATION
-       ========================================================= */
+/* =========================================================
+   SAVE ANSWERS
+========================================================= */
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      initialize
+function saveAnswers() {
+
+    localStorage.setItem(
+        "mcqAnswerSheetAnswers",
+        JSON.stringify(answers)
+    );
+
+}
+
+
+/* =========================================================
+   CREATE ANSWER SHEET
+========================================================= */
+
+function createAnswerSheet() {
+
+    const sheet =
+        document.getElementById(
+            "answerSheet"
+        );
+
+    sheet.innerHTML = "";
+
+
+    for (
+        let question = 0;
+        question < TOTAL_QUESTIONS;
+        question++
+    ) {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "answer-row";
+
+
+        /* Question number */
+
+        const number =
+            document.createElement("div");
+
+        number.className =
+            "question-number";
+
+        number.textContent =
+            question + 1;
+
+        row.appendChild(number);
+
+
+        /* A-E */
+
+        for (
+            let option = 0;
+            option < 5;
+            option++
+        ) {
+
+            const cell =
+                document.createElement("div");
+
+            cell.className =
+                "answer-cell";
+
+
+            if (
+                answers[question] === option
+            ) {
+
+                cell.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            const bubble =
+                document.createElement("div");
+
+            bubble.className =
+                "bubble";
+
+
+            cell.appendChild(
+                bubble
+            );
+
+
+            cell.onclick = function() {
+
+                selectAnswer(
+                    question,
+                    option
+                );
+
+            };
+
+
+            row.appendChild(cell);
+
+        }
+
+
+        sheet.appendChild(row);
+
+    }
+
+
+    updateCounter();
+
+}
+
+
+/* =========================================================
+   SELECT ANSWER
+========================================================= */
+
+function selectAnswer(
+    questionIndex,
+    optionIndex
+) {
+
+    answers[questionIndex] =
+        optionIndex;
+
+    lastAnsweredQuestion =
+        questionIndex;
+
+    saveAnswers();
+
+    refreshQuestionRow(
+        questionIndex
+    );
+
+    updateCounter();
+
+}
+
+
+/* =========================================================
+   REFRESH SINGLE ROW
+========================================================= */
+
+function refreshQuestionRow(
+    questionIndex
+) {
+
+    const rows =
+        document.querySelectorAll(
+            ".answer-row"
+        );
+
+    const row =
+        rows[questionIndex];
+
+    if (!row) return;
+
+
+    const cells =
+        row.querySelectorAll(
+            ".answer-cell"
+        );
+
+
+    cells.forEach(
+        (cell, optionIndex) => {
+
+            cell.classList.remove(
+                "selected"
+            );
+
+
+            if (
+                answers[questionIndex] ===
+                optionIndex
+            ) {
+
+                cell.classList.add(
+                    "selected"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE ANSWER COUNTER
+========================================================= */
+
+function updateCounter() {
+
+    const answered =
+        answers.filter(
+            answer =>
+                answer !== null
+        ).length;
+
+
+    document.getElementById(
+        "answeredCounter"
+    ).textContent =
+        `${answered} / ${TOTAL_QUESTIONS} answered`;
+
+}
+
+
+/* =========================================================
+   UNDO LAST
+========================================================= */
+
+function clearLastAnswer() {
+
+    if (
+        lastAnsweredQuestion === null
+    ) {
+
+        alert(
+            "No answer to undo."
+        );
+
+        return;
+
+    }
+
+
+    answers[lastAnsweredQuestion] =
+        null;
+
+
+    refreshQuestionRow(
+        lastAnsweredQuestion
     );
 
 
-    function initialize() {
+    saveAnswers();
 
-      document.getElementById(
-        "examTitle"
-      ).textContent = examConfig.title;
+    updateCounter();
 
-      document.title =
-        examConfig.title;
 
-      createQuestionGrid();
+    lastAnsweredQuestion =
+        null;
 
-      renderQuestion();
+}
 
-      updateProgress();
 
-      startTimer();
+/* =========================================================
+   CLEAR ALL
+========================================================= */
 
-    }
+function clearAllAnswers() {
 
-
-    /* =========================================================
-       QUESTION NAVIGATION
-       ========================================================= */
-
-    function createQuestionGrid() {
-
-      const grid =
-        document.getElementById(
-          "questionGrid"
-        );
-
-      grid.innerHTML = "";
-
-      examConfig.questions.forEach(
-        (_, index) => {
-
-          const button =
-            document.createElement("button");
-
-          button.className =
-            "question-number";
-
-          button.textContent =
-            index + 1;
-
-          button.onclick = () => {
-
-            currentQuestion = index;
-
-            renderQuestion();
-
-            closeSidebarOnMobile();
-
-          };
-
-          grid.appendChild(button);
-
-        }
-      );
-
-    }
-
-
-    function renderQuestion() {
-
-      const question =
-        examConfig.questions[
-          currentQuestion
-        ];
-
-      document.getElementById(
-        "questionCount"
-      ).textContent =
-        `Question ${currentQuestion + 1} of ${examConfig.questions.length}`;
-
-
-      document.getElementById(
-        "questionText"
-      ).textContent =
-        question.question;
-
-
-      const answersContainer =
-        document.getElementById("answers");
-
-      answersContainer.innerHTML = "";
-
-
-      question.options.forEach(
-        (option, index) => {
-
-          const answer =
-            document.createElement("div");
-
-          answer.className = "answer";
-
-          if (
-            answers[currentQuestion] === index
-          ) {
-            answer.classList.add("selected");
-          }
-
-
-          answer.onclick = () => {
-
-            selectAnswer(index);
-
-          };
-
-
-          const radio =
-            document.createElement("div");
-
-          radio.className =
-            "answer-radio";
-
-
-          const letter =
-            document.createElement("div");
-
-          letter.className =
-            "answer-letter";
-
-          letter.textContent =
-            String.fromCharCode(
-              65 + index
-            );
-
-
-          const text =
-            document.createElement("div");
-
-          text.className =
-            "answer-text";
-
-          text.textContent =
-            option;
-
-
-          answer.appendChild(radio);
-          answer.appendChild(letter);
-          answer.appendChild(text);
-
-          answersContainer.appendChild(answer);
-
-        }
-      );
-
-
-      updateFlagButton();
-
-      updateNavigation();
-
-      updateQuestionGrid();
-
-    }
-
-
-    function selectAnswer(index) {
-
-      if (submitted) return;
-
-      answers[currentQuestion] = index;
-
-      renderQuestion();
-
-      updateProgress();
-
-    }
-
-
-    function previousQuestion() {
-
-      if (currentQuestion > 0) {
-
-        currentQuestion--;
-
-        renderQuestion();
-
-      }
-
-    }
-
-
-    function nextQuestion() {
-
-      if (
-        currentQuestion <
-        examConfig.questions.length - 1
-      ) {
-
-        currentQuestion++;
-
-        renderQuestion();
-
-      } else {
-
-        confirmSubmit();
-
-      }
-
-    }
-
-
-    function clearCurrentAnswer() {
-
-      answers[currentQuestion] = null;
-
-      renderQuestion();
-
-      updateProgress();
-
-    }
-
-
-    /* =========================================================
-       FLAGGING
-       ========================================================= */
-
-    function toggleFlag() {
-
-      flagged[currentQuestion] =
-        !flagged[currentQuestion];
-
-      updateFlagButton();
-
-      updateQuestionGrid();
-
-    }
-
-
-    function updateFlagButton() {
-
-      const button =
-        document.getElementById(
-          "flagButton"
-        );
-
-      if (flagged[currentQuestion]) {
-
-        button.classList.add("active");
-
-        button.textContent =
-          "⚑ Flagged";
-
-      } else {
-
-        button.classList.remove("active");
-
-        button.textContent =
-          "⚑ Flag for Review";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       PROGRESS
-       ========================================================= */
-
-    function updateProgress() {
-
-      const answered =
-        answers.filter(
-          answer => answer !== null
-        ).length;
-
-      const total =
-        examConfig.questions.length;
-
-      const percentage =
-        Math.round(
-          (answered / total) * 100
+    const confirmed =
+        confirm(
+            "Clear all selected answers?"
         );
 
 
-      document.getElementById(
-        "progressText"
-      ).textContent =
-        `${percentage}%`;
+    if (!confirmed) return;
 
 
-      document.getElementById(
-        "progressFill"
-      ).style.width =
-        `${percentage}%`;
-
-    }
-
-
-    function updateQuestionGrid() {
-
-      const buttons =
-        document.querySelectorAll(
-          ".question-number"
-        );
-
-
-      buttons.forEach(
-        (button, index) => {
-
-          button.classList.remove(
-            "current",
-            "answered",
-            "flagged"
-          );
-
-
-          if (
-            index === currentQuestion
-          ) {
-
-            button.classList.add(
-              "current"
-            );
-
-          }
-
-
-          if (
-            answers[index] !== null
-          ) {
-
-            button.classList.add(
-              "answered"
-            );
-
-          }
-
-
-          if (flagged[index]) {
-
-            button.classList.add(
-              "flagged"
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-
-    /* =========================================================
-       NAVIGATION BUTTONS
-       ========================================================= */
-
-    function updateNavigation() {
-
-      const previous =
-        document.getElementById(
-          "previousButton"
-        );
-
-      const next =
-        document.getElementById(
-          "nextButton"
-        );
-
-
-      previous.disabled =
-        currentQuestion === 0;
-
-
-      if (
-        currentQuestion ===
-        examConfig.questions.length - 1
-      ) {
-
-        next.textContent =
-          "Submit Exam";
-
-      } else {
-
-        next.textContent =
-          "Next →";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       TIMER
-       ========================================================= */
-
-    function startTimer() {
-
-      updateTimerDisplay();
-
-      timerInterval =
-        setInterval(() => {
-
-          if (timeRemaining <= 0) {
-
-            clearInterval(
-              timerInterval
-            );
-
-            submitExam();
-
-            return;
-
-          }
-
-          timeRemaining--;
-
-          updateTimerDisplay();
-
-        }, 1000);
-
-    }
-
-
-    function updateTimerDisplay() {
-
-      const minutes =
-        Math.floor(
-          timeRemaining / 60
-        );
-
-      const seconds =
-        timeRemaining % 60;
-
-
-      document.getElementById(
-        "timer"
-      ).textContent =
-        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-    }
-
-
-    /* =========================================================
-       SUBMISSION
-       ========================================================= */
-
-    function confirmSubmit() {
-
-      const unanswered =
-        answers.filter(
-          answer => answer === null
-        ).length;
-
-
-      const message =
-        document.getElementById(
-          "submitMessage"
-        );
-
-
-      if (unanswered > 0) {
-
-        message.textContent =
-          `You have ${unanswered} unanswered question${unanswered === 1 ? "" : "s"}. Are you sure you want to submit?`;
-
-      } else {
-
-        message.textContent =
-          "You have answered every question. Are you ready to submit?";
-
-      }
-
-
-      document.getElementById(
-        "submitModal"
-      ).style.display =
-        "flex";
-
-    }
-
-
-    function closeModal() {
-
-      document.getElementById(
-        "submitModal"
-      ).style.display =
-        "none";
-
-    }
-
-
-    function submitExam() {
-
-      if (submitted) return;
-
-      submitted = true;
-
-      clearInterval(
-        timerInterval
-      );
-
-      closeModal();
-
-      calculateResults();
-
-    }
-
-
-    /* =========================================================
-       RESULTS
-       ========================================================= */
-
-    function calculateResults() {
-
-      let correct = 0;
-
-      let incorrect = 0;
-
-      let unanswered = 0;
-
-
-      examConfig.questions.forEach(
-        (question, index) => {
-
-          if (
-            answers[index] === null
-          ) {
-
-            unanswered++;
-
-          } else if (
-            answers[index] ===
-            question.correct
-          ) {
-
-            correct++;
-
-          } else {
-
-            incorrect++;
-
-          }
-
-        }
-      );
-
-
-      const total =
-        examConfig.questions.length;
-
-
-      const percentage =
-        Math.round(
-          (correct / total) * 100
-        );
-
-
-      document.getElementById(
-        "scorePercentage"
-      ).textContent =
-        `${percentage}%`;
-
-
-      document.getElementById(
-        "correctCount"
-      ).textContent =
-        correct;
-
-
-      document.getElementById(
-        "incorrectCount"
-      ).textContent =
-        incorrect;
-
-
-      document.getElementById(
-        "unansweredCount"
-      ).textContent =
-        unanswered;
-
-
-      let title;
-
-      if (percentage >= 90) {
-
-        title = "Excellent Performance";
-
-      } else if (percentage >= 75) {
-
-        title = "Strong Performance";
-
-      } else if (percentage >= 60) {
-
-        title = "Good Effort";
-
-      } else {
-
-        title = "Keep Practicing";
-
-      }
-
-
-      document.getElementById(
-        "resultTitle"
-      ).textContent =
-        title;
-
-
-      document.getElementById(
-        "resultDescription"
-      ).textContent =
-        `You answered ${correct} of ${total} questions correctly.`;
-
-
-      createReview();
-
-      document.getElementById(
-        "examScreen"
-      ).style.display =
-        "none";
-
-
-      document.getElementById(
-        "resultScreen"
-      ).style.display =
-        "block";
-
-
-      document.querySelector(
-        ".sidebar"
-      ).style.display =
-        "none";
-
-
-      document.querySelector(
-        ".main"
-      ).style.marginLeft =
-        "0";
-
-
-      document.querySelector(
-        ".main"
-      ).style.width =
-        "100%";
-
-    }
-
-
-    function createReview() {
-
-      const container =
-        document.getElementById(
-          "reviewList"
-        );
-
-      container.innerHTML = "";
-
-
-      examConfig.questions.forEach(
-        (question, index) => {
-
-          const item =
-            document.createElement("div");
-
-
-          const isCorrect =
-            answers[index] ===
-            question.correct;
-
-
-          item.className =
-            "review-item " +
-            (
-              isCorrect
-                ? "correct"
-                : "incorrect"
-            );
-
-
-          const questionTitle =
-            document.createElement("div");
-
-          questionTitle.className =
-            "review-question";
-
-          questionTitle.textContent =
-            `${index + 1}. ${question.question}`;
-
-
-          const yourAnswer =
-            document.createElement("div");
-
-          yourAnswer.className =
-            "review-answer";
-
-
-          if (
-            answers[index] === null
-          ) {
-
-            yourAnswer.innerHTML =
-              `<span class="incorrect-text">Your answer:</span> Not answered`;
-
-          } else {
-
-            yourAnswer.innerHTML =
-              `<span class="${isCorrect ? "correct-text" : "incorrect-text"}">Your answer:</span> ${String.fromCharCode(65 + answers[index])}. ${question.options[answers[index]]}`;
-
-          }
-
-
-          const correctAnswer =
-            document.createElement("div");
-
-          correctAnswer.className =
-            "review-answer";
-
-          correctAnswer.innerHTML =
-            `<span class="correct-text">Correct answer:</span> ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}`;
-
-
-          const explanation =
-            document.createElement("div");
-
-          explanation.className =
-            "review-answer";
-
-          explanation.style.marginTop =
-            "10px";
-
-          explanation.textContent =
-            question.explanation || "";
-
-
-          item.appendChild(
-            questionTitle
-          );
-
-          item.appendChild(
-            yourAnswer
-          );
-
-          item.appendChild(
-            correctAnswer
-          );
-
-          if (
-            question.explanation
-          ) {
-
-            item.appendChild(
-              explanation
-            );
-
-          }
-
-
-          container.appendChild(
-            item
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =========================================================
-       RESTART
-       ========================================================= */
-
-    function restartExam() {
-
-      currentQuestion = 0;
-
-      answers =
+    answers =
         new Array(
-          examConfig.questions.length
+            TOTAL_QUESTIONS
         ).fill(null);
 
-      flagged =
-        new Array(
-          examConfig.questions.length
-        ).fill(false);
 
-      submitted = false;
-
-      timeRemaining =
-        examConfig.timeLimitMinutes *
-        60;
+    lastAnsweredQuestion =
+        null;
 
 
-      document.getElementById(
-        "examScreen"
-      ).style.display =
-        "block";
+    saveAnswers();
+
+    createAnswerSheet();
+
+}
 
 
-      document.getElementById(
-        "resultScreen"
-      ).style.display =
-        "none";
+/* =========================================================
+   ANSWER KEY PANEL
+========================================================= */
 
+function toggleAnswerKey() {
 
-      document.querySelector(
-        ".sidebar"
-      ).style.display =
-        "";
-
-
-      document.querySelector(
-        ".main"
-      ).style.marginLeft =
-        "";
-
-
-      document.querySelector(
-        ".main"
-      ).style.width =
-        "";
-
-
-      clearInterval(
-        timerInterval
-      );
-
-      renderQuestion();
-
-      updateProgress();
-
-      startTimer();
-
-    }
-
-
-    /* =========================================================
-       MOBILE SIDEBAR
-       ========================================================= */
-
-    function toggleSidebar() {
-
-      document.getElementById(
-        "sidebar"
-      ).classList.toggle("open");
-
-    }
-
-
-    function closeSidebarOnMobile() {
-
-      if (
-        window.innerWidth <= 800
-      ) {
-
+    const panel =
         document.getElementById(
-          "sidebar"
-        ).classList.remove("open");
+            "answerKeyPanel"
+        );
 
-      }
+
+    panel.classList.toggle(
+        "visible"
+    );
+
+
+    if (
+        panel.classList.contains(
+            "visible"
+        )
+    ) {
+
+        panel.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+}
+
+
+function closeAnswerKey() {
+
+    document.getElementById(
+        "answerKeyPanel"
+    ).classList.remove(
+        "visible"
+    );
+
+}
+
+
+/* =========================================================
+   PARSE ANSWER KEY
+========================================================= */
+
+function parseAnswerKey(text) {
+
+    text =
+        text
+            .toUpperCase()
+            .trim();
+
+
+    if (!text) {
+
+        return null;
 
     }
 
 
-    /* =========================================================
-       KEYBOARD SHORTCUTS
-       =========================================================
+    /*
+       First attempt:
 
-       Arrow Left  = Previous
-       Arrow Right = Next
-       A-E          = Select answer
-       F            = Flag
-       ========================================================= */
+       Numbered format
 
-    document.addEventListener(
-      "keydown",
-      function(event) {
+       1A 2B 3C
+       1 A
+       2 B
+       etc.
+    */
 
-        if (submitted) return;
+    const numbered =
+        {};
+
+    const regex =
+        /(\d{1,3})\s*[:.)-]?\s*([ABCDE])/g;
+
+
+    let match;
+
+
+    while (
+        (match = regex.exec(text))
+        !== null
+    ) {
+
+        const question =
+            parseInt(
+                match[1],
+                10
+            );
+
+
+        const answer =
+            match[2];
 
 
         if (
-          event.key ===
-          "ArrowLeft"
+            question >= 1 &&
+            question <= TOTAL_QUESTIONS
         ) {
 
-          previousQuestion();
+            numbered[
+                question - 1
+            ] = answer;
+
+        }
+
+    }
+
+
+    /*
+       If numbered answers were found,
+       use them.
+    */
+
+    if (
+        Object.keys(numbered).length > 0
+    ) {
+
+        return numbered;
+
+    }
+
+
+    /*
+       Otherwise treat it as a continuous
+       answer sequence.
+
+       Remove everything except A-E.
+    */
+
+    const sequence =
+        text.replace(
+            /[^ABCDE]/g,
+            ""
+        );
+
+
+    if (!sequence) {
+
+        return null;
+
+    }
+
+
+    const sequenceAnswers =
+        {};
+
+
+    for (
+        let i = 0;
+        i < sequence.length &&
+        i < TOTAL_QUESTIONS;
+        i++
+    ) {
+
+        sequenceAnswers[i] =
+            sequence[i];
+
+    }
+
+
+    return sequenceAnswers;
+
+}
+
+
+/* =========================================================
+   CHECK ANSWERS
+========================================================= */
+
+function checkAnswers() {
+
+    const text =
+        document.getElementById(
+            "answerKey"
+        ).value;
+
+
+    const key =
+        parseAnswerKey(text);
+
+
+    if (!key) {
+
+        alert(
+            "Please enter an answer key first."
+        );
+
+        return;
+
+    }
+
+
+    let correct = 0;
+
+    let incorrect = 0;
+
+    let unanswered = 0;
+
+
+    const results = [];
+
+
+    for (
+        let i = 0;
+        i < TOTAL_QUESTIONS;
+        i++
+    ) {
+
+        const userAnswer =
+            answers[i];
+
+
+        const correctLetter =
+            key[i];
+
+
+        if (
+            !correctLetter
+        ) {
+
+            results.push({
+                number: i + 1,
+                status: "unanswered",
+                user: userAnswer,
+                correct: null
+            });
+
+            continue;
 
         }
 
 
-        if (
-          event.key ===
-          "ArrowRight"
-        ) {
-
-          nextQuestion();
-
-        }
-
-
-        const key =
-          event.key.toUpperCase();
-
-
-        if (
-          ["A", "B", "C", "D", "E"].includes(
-            key
-          )
-        ) {
-
-          const index =
-            key.charCodeAt(0) -
+        const correctIndex =
+            correctLetter.charCodeAt(0) -
             65;
 
 
-          const question =
-            examConfig.questions[
-              currentQuestion
-            ];
-
-
-          if (
-            index <
-            question.options.length
-          ) {
-
-            selectAnswer(index);
-
-          }
-
-        }
-
-
         if (
-          key === "F"
+            userAnswer === null
         ) {
 
-          toggleFlag();
+            unanswered++;
+
+            results.push({
+                number: i + 1,
+                status: "unanswered",
+                user: null,
+                correct: correctIndex
+            });
 
         }
 
-      }
+        else if (
+            userAnswer === correctIndex
+        ) {
+
+            correct++;
+
+            results.push({
+                number: i + 1,
+                status: "correct",
+                user: userAnswer,
+                correct: correctIndex
+            });
+
+        }
+
+        else {
+
+            incorrect++;
+
+            results.push({
+                number: i + 1,
+                status: "incorrect",
+                user: userAnswer,
+                correct: correctIndex
+            });
+
+        }
+
+    }
+
+
+    /*
+       Questions without a supplied key
+       are not counted in the score.
+    */
+
+    const questionsWithKey =
+        Object.keys(key).length;
+
+
+    if (
+        questionsWithKey === 0
+    ) {
+
+        alert(
+            "No valid answers were found in the answer key."
+        );
+
+        return;
+
+    }
+
+
+    const percentage =
+        Math.round(
+            (
+                correct /
+                questionsWithKey
+            ) * 100
+        );
+
+
+    displayResults(
+        correct,
+        incorrect,
+        unanswered,
+        questionsWithKey,
+        percentage,
+        results
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY RESULTS
+========================================================= */
+
+function displayResults(
+    correct,
+    incorrect,
+    unanswered,
+    questionsWithKey,
+    percentage,
+    results
+) {
+
+    document.getElementById(
+        "score"
+    ).textContent =
+        `${percentage}%`;
+
+
+    document.getElementById(
+        "scoreDescription"
+    ).textContent =
+        `${correct} correct out of ${questionsWithKey} questions with an answer key.`;
+
+
+    document.getElementById(
+        "correctCount"
+    ).textContent =
+        correct;
+
+
+    document.getElementById(
+        "incorrectCount"
+    ).textContent =
+        incorrect;
+
+
+    document.getElementById(
+        "unansweredCount"
+    ).textContent =
+        unanswered;
+
+
+    const grid =
+        document.getElementById(
+            "reviewGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    results.forEach(
+        result => {
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                `review-item ${result.status}`;
+
+
+            let text =
+                `${result.number}: `;
+
+
+            if (
+                result.user === null
+            ) {
+
+                text += "—";
+
+            } else {
+
+                text +=
+                    String.fromCharCode(
+                        65 + result.user
+                    );
+
+            }
+
+
+            if (
+                result.correct !== null
+            ) {
+
+                text +=
+                    ` / ${String.fromCharCode(
+                        65 + result.correct
+                    )}`;
+
+            }
+
+
+            item.textContent =
+                text;
+
+
+            grid.appendChild(
+                item
+            );
+
+        }
     );
 
 
-    /* =========================================================
-       PREVENT ACCIDENTAL PAGE EXIT
-       ========================================================= */
-
-    window.addEventListener(
-      "beforeunload",
-      function(event) {
-
-        if (
-          !submitted &&
-          answers.some(
-            answer => answer !== null
-          )
-        ) {
-
-          event.preventDefault();
-
-          event.returnValue = "";
-
-        }
-
-      }
+    document.getElementById(
+        "results"
+    ).classList.add(
+        "visible"
     );
 
-  </script>
+
+    document.getElementById(
+        "results"
+    ).scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* =========================================================
+   HIDE RESULTS
+========================================================= */
+
+function hideResults() {
+
+    document.getElementById(
+        "results"
+    ).classList.remove(
+        "visible"
+    );
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+=========================================================
+
+   Number keys are NOT used because the user may
+   accidentally trigger answers while reading.
+
+   A = answer A
+   B = answer B
+   C = answer C
+   D = answer D
+   E = answer E
+
+   Arrow keys can move between questions only
+   if desired in the future.
+
+========================================================= */
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadAnswers();
+
+createAnswerSheet();
+
+
+</script>
 
 </body>
 </html>
+```
