@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCQ Answer Sheet</title>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+
+      --background: #f4f6f8;
+      --surface: #ffffff;
+      --border: #d9dee7;
+      --text: #172033;
+      --muted: #667085;
+
+      --correct: #15803d;
+      --correct-bg: #f0fdf4;
+
+      --incorrect: #dc2626;
+      --incorrect-bg: #fef2f2;
+
+      --sidebar-width: 290px;
+      --header-height: 70px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .header {
+      height: var(--header-height);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 24px;
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: 800;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .timer {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      padding: 8px 14px;
+
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* =========================
+       LAYOUT
+       ========================= */
+
+    .app {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+
+      padding: 22px;
+
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      left: 0;
+
+      overflow-y: auto;
+    }
+
+    .main {
+      margin-left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
+
+      padding: 32px;
+
+      display: flex;
+      justify-content: center;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* =========================
+       SIDEBAR
+       ========================= */
+
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .progress-container {
+      margin-bottom: 24px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .progress-bar {
+      height: 7px;
+      background: #e9edf3;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.25s ease;
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .question-number {
+      width: 100%;
+      aspect-ratio: 1;
+
+      border: 1px solid var(--border);
+      border-radius: 7px;
+
+      background: white;
+      color: var(--text);
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition: 0.15s;
+    }
+
+    .question-number:hover {
+      border-color: var(--primary);
+    }
+
+    .question-number.current {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .question-number.answered {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+
+    .question-number.current.answered {
+      background: var(--primary);
+      color: white;
+    }
+
+    .question-number.flagged {
+      position: relative;
+    }
+
+    .question-number.flagged::after {
+      content: "";
+      position: absolute;
+
+      width: 6px;
+      height: 6px;
+
+      background: #f59e0b;
+      border-radius: 50%;
+
+      top: 3px;
+      right: 3px;
+    }
+
+    .sidebar-actions {
+      margin-top: 26px;
+      display: grid;
+      gap: 10px;
+    }
+
+    /* =========================
+       QUESTION CARD
+       ========================= */
+
+    .question-card {
+      background: var(--surface);
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      padding: 32px;
+
+      box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 22px;
+    }
+
+    .question-count {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .flag-button {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+
+      cursor: pointer;
+
+      padding: 6px 10px;
+      border-radius: 7px;
+    }
+
+    .flag-button:hover {
+      background: #f8fafc;
+    }
+
+    .flag-button.active {
+      color: #d97706;
+      background: #fffbeb;
+    }
+
+    .question-text {
+      font-size: 21px;
+      line-height: 1.55;
+      font-weight: 650;
+
+      margin: 0 0 28px;
+    }
+
+    /* =========================
+       ANSWERS
+       ========================= */
+
+    .answers {
+      display: grid;
+      gap: 12px;
+    }
+
+    .answer {
+      position: relative;
+
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+
+      padding: 16px 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      background: white;
+
+      transition:
+        border-color 0.15s,
+        background 0.15s,
+        box-shadow 0.15s;
+    }
+
+    .answer:hover {
+      border-color: #93b4f5;
+      background: #fafcff;
+    }
+
+    .answer.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+
+      box-shadow:
+        0 0 0 1px var(--primary);
+    }
+
+    .answer-radio {
+      width: 21px;
+      height: 21px;
+
+      min-width: 21px;
+
+      border: 2px solid #98a2b3;
+      border-radius: 50%;
+
+      margin-top: 1px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .answer.selected .answer-radio {
+      border-color: var(--primary);
+    }
+
+    .answer.selected .answer-radio::after {
+      content: "";
+
+      width: 9px;
+      height: 9px;
+
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .answer-letter {
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 20px;
+    }
+
+    .answer.selected .answer-letter {
+      color: var(--primary);
+    }
+
+    .answer-text {
+      flex: 1;
+    }
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+
+      margin-top: 20px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+
+      background: white;
+      color: var(--text);
+
+      border-radius: 8px;
+
+      padding: 10px 17px;
+
+      cursor: pointer;
+
+      font-weight: 650;
+
+      transition: 0.15s;
+    }
+
+    .btn:hover {
+      background: #f8fafc;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      border-color: #dc2626;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #b91c1c;
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* =========================
+       RESULT SCREEN
+       ========================= */
+
+    .result-screen {
+      display: none;
+    }
+
+    .result-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 38px;
+      text-align: center;
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+
+      border-radius: 50%;
+
+      border: 10px solid #dbeafe;
+
+      margin: 10px auto 25px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-number {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .score-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .result-title {
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+
+    .result-description {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+
+      margin: 25px 0;
+    }
+
+    .stat {
+      padding: 17px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #fafafa;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* =========================
+       REVIEW
+       ========================= */
+
+    .review-section {
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .review-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      padding: 18px;
+
+      margin-bottom: 12px;
+    }
+
+    .review-item.correct {
+      background: var(--correct-bg);
+      border-color: #bbf7d0;
+    }
+
+    .review-item.incorrect {
+      background: var(--incorrect-bg);
+      border-color: #fecaca;
+    }
+
+    .review-question {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .review-answer {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .correct-text {
+      color: var(--correct);
+      font-weight: 700;
+    }
+
+    .incorrect-text {
+      color: var(--incorrect);
+      font-weight: 700;
+    }
+
+    /* =========================
+       MODAL
+       ========================= */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+
+      background: rgba(15, 23, 42, 0.45);
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      z-index: 1000;
+
+      padding: 20px;
+    }
+
+    .modal {
+      background: white;
+
+      width: 100%;
+      max-width: 440px;
+
+      border-radius: 13px;
+
+      padding: 28px;
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .modal p {
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+
+      margin-top: 25px;
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    .mobile-sidebar-toggle {
+      display: none;
+    }
+
+    @media (max-width: 800px) {
+      :root {
+        --header-height: 62px;
+      }
+
+      .header {
+        padding: 0 14px;
+      }
+
+      .brand {
+        font-size: 17px;
+      }
+
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .mobile-sidebar-toggle {
+        display: block;
+
+        border: 1px solid var(--border);
+        background: white;
+
+        border-radius: 7px;
+
+        padding: 6px 9px;
+
+        cursor: pointer;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s;
+
+        z-index: 200;
+
+        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px 12px;
+      }
+
+      .question-card {
+        padding: 22px 17px;
+      }
+
+      .question-text {
+        font-size: 18px;
+      }
+
+      .timer {
+        padding: 6px 9px;
+        font-size: 13px;
+      }
+
+      .result-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+
+  <header class="header">
+
+    <div class="brand">
+      <button
+        class="mobile-sidebar-toggle"
+        id="mobileSidebarButton"
+        onclick="toggleSidebar()"
+        aria-label="Open question navigator"
+      >
+        ☰
+      </button>
+
+      <div class="brand-icon">Q</div>
+      <span id="examTitle">MCQ Answer Sheet</span>
+    </div>
+
+    <div class="header-right">
+
+      <div class="timer" id="timer">
+        60:00
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       APPLICATION
+       ========================= -->
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-title">
+        Questions
+      </div>
+
+      <div class="progress-container">
+
+        <div class="progress-label">
+          <span>Progress</span>
+          <span id="progressText">0%</span>
+        </div>
+
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
+        </div>
+
+      </div>
+
+      <div
+        class="question-grid"
+        id="questionGrid"
+      ></div>
+
+      <div class="sidebar-actions">
+
+        <button
+          class="btn"
+          onclick="clearCurrentAnswer()"
+        >
+          Clear Answer
+        </button>
+
+        <button
+          class="btn btn-danger"
+          onclick="confirmSubmit()"
+        >
+          Submit Exam
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+      <div class="content">
+
+        <!-- QUESTION AREA -->
+
+        <div id="examScreen">
+
+          <div class="question-card">
+
+            <div class="question-meta">
+
+              <div
+                class="question-count"
+                id="questionCount"
+              >
+                Question 1 of 10
+              </div>
+
+              <button
+                class="flag-button"
+                id="flagButton"
+                onclick="toggleFlag()"
+              >
+                ⚑ Flag for Review
+              </button>
+
+            </div>
+
+
+            <h1
+              class="question-text"
+              id="questionText"
+            >
+            </h1>
+
+
+            <div
+              class="answers"
+              id="answers"
+            ></div>
+
+          </div>
+
+
+          <div class="navigation">
+
+            <button
+              class="btn"
+              id="previousButton"
+              onclick="previousQuestion()"
+            >
+              ← Previous
+            </button>
+
+            <div class="nav-right">
+
+              <button
+                class="btn"
+                onclick="clearCurrentAnswer()"
+              >
+                Clear
+              </button>
+
+              <button
+                class="btn btn-primary"
+                id="nextButton"
+                onclick="nextQuestion()"
+              >
+                Next →
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RESULT SCREEN -->
+
+        <div
+          class="result-screen"
+          id="resultScreen"
+        >
+
+          <div class="result-card">
+
+            <div class="score-circle">
+
+              <div
+                class="score-number"
+                id="scorePercentage"
+              >
+                0%
+              </div>
+
+              <div class="score-label">
+                Score
+              </div>
+
+            </div>
+
+            <h2
+              class="result-title"
+              id="resultTitle"
+            >
+              Exam Complete
+            </h2>
+
+            <p
+              class="result-description"
+              id="resultDescription"
+            >
+            </p>
+
+
+            <div class="result-stats">
+
+              <div class="stat">
+                <div
+                  class="stat-value"
+                  id="correctCount"
+                >
+                  0
+                </div>
+                <div class="stat-label">
+                  Correct
+                </div>
+              </div>
+
+              <div class="stat">
+                <div
+                  class="stat-value"
+                  id="incorrectCount"
+                >
+                  0
+                </div>
+                <div class="stat-label">
+                  Incorrect
+                </div>
+              </div>
+
+              <div class="stat">
+                <div
+                  class="stat-value"
+                  id="unansweredCount"
+                >
+                  0
+                </div>
+                <div class="stat-label">
+                  Unanswered
+                </div>
+              </div>
+
+            </div>
+
+
+            <button
+              class="btn btn-primary"
+              onclick="restartExam()"
+            >
+              Restart Exam
+            </button>
+
+
+            <div class="review-section">
+
+              <h3>
+                Question Review
+              </h3>
+
+              <div id="reviewList"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================
+       SUBMIT MODAL
+       ========================= -->
+
+  <div
+    class="modal-overlay"
+    id="submitModal"
+  >
+
+    <div class="modal">
+
+      <h2>
+        Submit Exam?
+      </h2>
+
+      <p id="submitMessage">
+        Are you sure you want to submit?
+      </p>
+
+      <div class="modal-actions">
+
+        <button
+          class="btn"
+          onclick="closeModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="btn btn-danger"
+          onclick="submitExam()"
+        >
+          Submit
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================================================
+       EXAM CONFIGURATION
+       =========================================================
+
+       EDIT THIS SECTION TO ADD YOUR OWN QUESTIONS.
+
+       Each question has:
+
+       question:
+         The question displayed to the user.
+
+       options:
+         Array of answer choices.
+
+       correct:
+         Zero-based index of the correct answer.
+
+         0 = A
+         1 = B
+         2 = C
+         3 = D
+         4 = E
+
+       explanation:
+         Optional explanation shown during review.
+
+       ========================================================= */
+
+    const examConfig = {
+
+      title: "Cardiology Practice Examination",
+
+      timeLimitMinutes: 60,
+
+      questions: [
+
+        {
+          question:
+            "Which of the following is the most common cause of secondary hypertension?",
+
+          options: [
+            "Renal parenchymal disease",
+            "Primary hyperaldosteronism",
+            "Renal artery stenosis",
+            "Pheochromocytoma",
+            "Cushing syndrome"
+          ],
+
+          correct: 0,
+
+          explanation:
+            "Renal parenchymal disease is one of the most common causes of secondary hypertension."
+        },
+
+
+        {
+          question:
+            "Which coronary artery most commonly supplies the AV node in a right-dominant coronary circulation?",
+
+          options: [
+            "Left anterior descending artery",
+            "Left circumflex artery",
+            "Right coronary artery",
+            "Left main coronary artery",
+            "Diagonal artery"
+          ],
+
+          correct: 2,
+
+          explanation:
+            "In a right-dominant circulation, the AV nodal artery usually arises from the right coronary artery."
+        },
+
+
+        {
+          question:
+            "Which ECG finding is most characteristic of hyperkalemia?",
+
+          options: [
+            "Delta waves",
+            "Peaked T waves",
+            "U waves",
+            "Short PR interval",
+            "ST elevation in V1–V3"
+          ],
+
+          correct: 1,
+
+          explanation:
+            "Early hyperkalemia classically produces tall, narrow, peaked T waves."
+        },
+
+
+        {
+          question:
+            "Which of the following is the preferred initial imaging modality for suspected aortic stenosis?",
+
+          options: [
+            "Cardiac MRI",
+            "Cardiac CT",
+            "Transthoracic echocardiography",
+            "TEE",
+            "Nuclear perfusion imaging"
+          ],
+
+          correct: 2,
+
+          explanation:
+            "Transthoracic echocardiography is the standard initial imaging test for suspected aortic stenosis."
+        },
+
+
+        {
+          question:
+            "Which chamber is primarily affected in isolated pulmonary hypertension?",
+
+          options: [
+            "Left atrium",
+            "Left ventricle",
+            "Right atrium",
+            "Right ventricle",
+            "Left ventricular outflow tract"
+          ],
+
+          correct: 3,
+
+          explanation:
+            "Pulmonary hypertension increases RV afterload and can lead to right ventricular hypertrophy and dysfunction."
+        },
+
+
+        {
+          question:
+            "Which of the following is a Class I indication for an ICD in an appropriate patient with reduced LVEF?",
+
+          options: [
+            "LVEF 55% without symptoms",
+            "LVEF 50% with PVCs",
+            "LVEF ≤35% despite guideline-directed therapy with appropriate clinical criteria",
+            "Sinus bradycardia alone",
+            "First-degree AV block alone"
+          ],
+
+          correct: 2,
+
+          explanation:
+            "Primary prevention ICD therapy is appropriate in selected patients with significantly reduced LVEF despite optimal guideline-directed medical therapy."
+        },
+
+
+        {
+          question:
+            "Which echocardiographic parameter is most directly used to estimate pulmonary artery systolic pressure?",
+
+          options: [
+            "Mitral E velocity",
+            "Tricuspid regurgitation velocity",
+            "Aortic valve area",
+            "Mitral annular plane systolic excursion",
+            "Left atrial volume"
+          ],
+
+          correct: 1,
+
+          explanation:
+            "TR jet velocity is used with an estimate of right atrial pressure to estimate pulmonary artery systolic pressure."
+        },
+
+
+        {
+          question:
+            "Which of the following is most characteristic of constrictive pericarditis?",
+
+          options: [
+            "Marked respiratory variation in ventricular filling",
+            "Severe isolated LV dilation",
+            "Fixed splitting of S2",
+            "Low cardiac output only during exercise",
+            "Severe LV outflow obstruction"
+          ],
+
+          correct: 0,
+
+          explanation:
+            "Enhanced ventricular interdependence and respiratory variation in ventricular filling are characteristic findings."
+        },
+
+
+        {
+          question:
+            "In a patient with STEMI, what is the preferred strategy when timely primary PCI is available?",
+
+          options: [
+            "Immediate CABG in all patients",
+            "Primary PCI",
+            "Elective stress testing",
+            "Observation",
+            "Delayed angiography after 7 days"
+          ],
+
+          correct: 1,
+
+          explanation:
+            "Primary PCI is the preferred reperfusion strategy when it can be performed within recommended time limits."
+        },
+
+
+        {
+          question:
+            "Which coronary artery is most commonly involved in an inferior myocardial infarction?",
+
+          options: [
+            "Right coronary artery",
+            "Left main coronary artery",
+            "Left anterior descending artery",
+            "Diagonal artery",
+            "Obtuse marginal artery"
+          ],
+
+          correct: 0,
+
+          explanation:
+            "The RCA is the most common culprit artery in inferior myocardial infarction, although the LCx can also be responsible."
+        }
+
+      ]
+
+    };
+
+
+    /* =========================================================
+       APPLICATION STATE
+       ========================================================= */
+
+    let currentQuestion = 0;
+
+    let answers = new Array(
+      examConfig.questions.length
+    ).fill(null);
+
+    let flagged = new Array(
+      examConfig.questions.length
+    ).fill(false);
+
+    let submitted = false;
+
+    let timeRemaining =
+      examConfig.timeLimitMinutes * 60;
+
+    let timerInterval;
+
+
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initialize
+    );
+
+
+    function initialize() {
+
+      document.getElementById(
+        "examTitle"
+      ).textContent = examConfig.title;
+
+      document.title =
+        examConfig.title;
+
+      createQuestionGrid();
+
+      renderQuestion();
+
+      updateProgress();
+
+      startTimer();
+
+    }
+
+
+    /* =========================================================
+       QUESTION NAVIGATION
+       ========================================================= */
+
+    function createQuestionGrid() {
+
+      const grid =
+        document.getElementById(
+          "questionGrid"
+        );
+
+      grid.innerHTML = "";
+
+      examConfig.questions.forEach(
+        (_, index) => {
+
+          const button =
+            document.createElement("button");
+
+          button.className =
+            "question-number";
+
+          button.textContent =
+            index + 1;
+
+          button.onclick = () => {
+
+            currentQuestion = index;
+
+            renderQuestion();
+
+            closeSidebarOnMobile();
+
+          };
+
+          grid.appendChild(button);
+
+        }
+      );
+
+    }
+
+
+    function renderQuestion() {
+
+      const question =
+        examConfig.questions[
+          currentQuestion
+        ];
+
+      document.getElementById(
+        "questionCount"
+      ).textContent =
+        `Question ${currentQuestion + 1} of ${examConfig.questions.length}`;
+
+
+      document.getElementById(
+        "questionText"
+      ).textContent =
+        question.question;
+
+
+      const answersContainer =
+        document.getElementById("answers");
+
+      answersContainer.innerHTML = "";
+
+
+      question.options.forEach(
+        (option, index) => {
+
+          const answer =
+            document.createElement("div");
+
+          answer.className = "answer";
+
+          if (
+            answers[currentQuestion] === index
+          ) {
+            answer.classList.add("selected");
+          }
+
+
+          answer.onclick = () => {
+
+            selectAnswer(index);
+
+          };
+
+
+          const radio =
+            document.createElement("div");
+
+          radio.className =
+            "answer-radio";
+
+
+          const letter =
+            document.createElement("div");
+
+          letter.className =
+            "answer-letter";
+
+          letter.textContent =
+            String.fromCharCode(
+              65 + index
+            );
+
+
+          const text =
+            document.createElement("div");
+
+          text.className =
+            "answer-text";
+
+          text.textContent =
+            option;
+
+
+          answer.appendChild(radio);
+          answer.appendChild(letter);
+          answer.appendChild(text);
+
+          answersContainer.appendChild(answer);
+
+        }
+      );
+
+
+      updateFlagButton();
+
+      updateNavigation();
+
+      updateQuestionGrid();
+
+    }
+
+
+    function selectAnswer(index) {
+
+      if (submitted) return;
+
+      answers[currentQuestion] = index;
+
+      renderQuestion();
+
+      updateProgress();
+
+    }
+
+
+    function previousQuestion() {
+
+      if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        renderQuestion();
+
+      }
+
+    }
+
+
+    function nextQuestion() {
+
+      if (
+        currentQuestion <
+        examConfig.questions.length - 1
+      ) {
+
+        currentQuestion++;
+
+        renderQuestion();
+
+      } else {
+
+        confirmSubmit();
+
+      }
+
+    }
+
+
+    function clearCurrentAnswer() {
+
+      answers[currentQuestion] = null;
+
+      renderQuestion();
+
+      updateProgress();
+
+    }
+
+
+    /* =========================================================
+       FLAGGING
+       ========================================================= */
+
+    function toggleFlag() {
+
+      flagged[currentQuestion] =
+        !flagged[currentQuestion];
+
+      updateFlagButton();
+
+      updateQuestionGrid();
+
+    }
+
+
+    function updateFlagButton() {
+
+      const button =
+        document.getElementById(
+          "flagButton"
+        );
+
+      if (flagged[currentQuestion]) {
+
+        button.classList.add("active");
+
+        button.textContent =
+          "⚑ Flagged";
+
+      } else {
+
+        button.classList.remove("active");
+
+        button.textContent =
+          "⚑ Flag for Review";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       PROGRESS
+       ========================================================= */
+
+    function updateProgress() {
+
+      const answered =
+        answers.filter(
+          answer => answer !== null
+        ).length;
+
+      const total =
+        examConfig.questions.length;
+
+      const percentage =
+        Math.round(
+          (answered / total) * 100
+        );
+
+
+      document.getElementById(
+        "progressText"
+      ).textContent =
+        `${percentage}%`;
+
+
+      document.getElementById(
+        "progressFill"
+      ).style.width =
+        `${percentage}%`;
+
+    }
+
+
+    function updateQuestionGrid() {
+
+      const buttons =
+        document.querySelectorAll(
+          ".question-number"
+        );
+
+
+      buttons.forEach(
+        (button, index) => {
+
+          button.classList.remove(
+            "current",
+            "answered",
+            "flagged"
+          );
+
+
+          if (
+            index === currentQuestion
+          ) {
+
+            button.classList.add(
+              "current"
+            );
+
+          }
+
+
+          if (
+            answers[index] !== null
+          ) {
+
+            button.classList.add(
+              "answered"
+            );
+
+          }
+
+
+          if (flagged[index]) {
+
+            button.classList.add(
+              "flagged"
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       NAVIGATION BUTTONS
+       ========================================================= */
+
+    function updateNavigation() {
+
+      const previous =
+        document.getElementById(
+          "previousButton"
+        );
+
+      const next =
+        document.getElementById(
+          "nextButton"
+        );
+
+
+      previous.disabled =
+        currentQuestion === 0;
+
+
+      if (
+        currentQuestion ===
+        examConfig.questions.length - 1
+      ) {
+
+        next.textContent =
+          "Submit Exam";
+
+      } else {
+
+        next.textContent =
+          "Next →";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       TIMER
+       ========================================================= */
+
+    function startTimer() {
+
+      updateTimerDisplay();
+
+      timerInterval =
+        setInterval(() => {
+
+          if (timeRemaining <= 0) {
+
+            clearInterval(
+              timerInterval
+            );
+
+            submitExam();
+
+            return;
+
+          }
+
+          timeRemaining--;
+
+          updateTimerDisplay();
+
+        }, 1000);
+
+    }
+
+
+    function updateTimerDisplay() {
+
+      const minutes =
+        Math.floor(
+          timeRemaining / 60
+        );
+
+      const seconds =
+        timeRemaining % 60;
+
+
+      document.getElementById(
+        "timer"
+      ).textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+    }
+
+
+    /* =========================================================
+       SUBMISSION
+       ========================================================= */
+
+    function confirmSubmit() {
+
+      const unanswered =
+        answers.filter(
+          answer => answer === null
+        ).length;
+
+
+      const message =
+        document.getElementById(
+          "submitMessage"
+        );
+
+
+      if (unanswered > 0) {
+
+        message.textContent =
+          `You have ${unanswered} unanswered question${unanswered === 1 ? "" : "s"}. Are you sure you want to submit?`;
+
+      } else {
+
+        message.textContent =
+          "You have answered every question. Are you ready to submit?";
+
+      }
+
+
+      document.getElementById(
+        "submitModal"
+      ).style.display =
+        "flex";
+
+    }
+
+
+    function closeModal() {
+
+      document.getElementById(
+        "submitModal"
+      ).style.display =
+        "none";
+
+    }
+
+
+    function submitExam() {
+
+      if (submitted) return;
+
+      submitted = true;
+
+      clearInterval(
+        timerInterval
+      );
+
+      closeModal();
+
+      calculateResults();
+
+    }
+
+
+    /* =========================================================
+       RESULTS
+       ========================================================= */
+
+    function calculateResults() {
+
+      let correct = 0;
+
+      let incorrect = 0;
+
+      let unanswered = 0;
+
+
+      examConfig.questions.forEach(
+        (question, index) => {
+
+          if (
+            answers[index] === null
+          ) {
+
+            unanswered++;
+
+          } else if (
+            answers[index] ===
+            question.correct
+          ) {
+
+            correct++;
+
+          } else {
+
+            incorrect++;
+
+          }
+
+        }
+      );
+
+
+      const total =
+        examConfig.questions.length;
+
+
+      const percentage =
+        Math.round(
+          (correct / total) * 100
+        );
+
+
+      document.getElementById(
+        "scorePercentage"
+      ).textContent =
+        `${percentage}%`;
+
+
+      document.getElementById(
+        "correctCount"
+      ).textContent =
+        correct;
+
+
+      document.getElementById(
+        "incorrectCount"
+      ).textContent =
+        incorrect;
+
+
+      document.getElementById(
+        "unansweredCount"
+      ).textContent =
+        unanswered;
+
+
+      let title;
+
+      if (percentage >= 90) {
+
+        title = "Excellent Performance";
+
+      } else if (percentage >= 75) {
+
+        title = "Strong Performance";
+
+      } else if (percentage >= 60) {
+
+        title = "Good Effort";
+
+      } else {
+
+        title = "Keep Practicing";
+
+      }
+
+
+      document.getElementById(
+        "resultTitle"
+      ).textContent =
+        title;
+
+
+      document.getElementById(
+        "resultDescription"
+      ).textContent =
+        `You answered ${correct} of ${total} questions correctly.`;
+
+
+      createReview();
+
+      document.getElementById(
+        "examScreen"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "resultScreen"
+      ).style.display =
+        "block";
+
+
+      document.querySelector(
+        ".sidebar"
+      ).style.display =
+        "none";
+
+
+      document.querySelector(
+        ".main"
+      ).style.marginLeft =
+        "0";
+
+
+      document.querySelector(
+        ".main"
+      ).style.width =
+        "100%";
+
+    }
+
+
+    function createReview() {
+
+      const container =
+        document.getElementById(
+          "reviewList"
+        );
+
+      container.innerHTML = "";
+
+
+      examConfig.questions.forEach(
+        (question, index) => {
+
+          const item =
+            document.createElement("div");
+
+
+          const isCorrect =
+            answers[index] ===
+            question.correct;
+
+
+          item.className =
+            "review-item " +
+            (
+              isCorrect
+                ? "correct"
+                : "incorrect"
+            );
+
+
+          const questionTitle =
+            document.createElement("div");
+
+          questionTitle.className =
+            "review-question";
+
+          questionTitle.textContent =
+            `${index + 1}. ${question.question}`;
+
+
+          const yourAnswer =
+            document.createElement("div");
+
+          yourAnswer.className =
+            "review-answer";
+
+
+          if (
+            answers[index] === null
+          ) {
+
+            yourAnswer.innerHTML =
+              `<span class="incorrect-text">Your answer:</span> Not answered`;
+
+          } else {
+
+            yourAnswer.innerHTML =
+              `<span class="${isCorrect ? "correct-text" : "incorrect-text"}">Your answer:</span> ${String.fromCharCode(65 + answers[index])}. ${question.options[answers[index]]}`;
+
+          }
+
+
+          const correctAnswer =
+            document.createElement("div");
+
+          correctAnswer.className =
+            "review-answer";
+
+          correctAnswer.innerHTML =
+            `<span class="correct-text">Correct answer:</span> ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}`;
+
+
+          const explanation =
+            document.createElement("div");
+
+          explanation.className =
+            "review-answer";
+
+          explanation.style.marginTop =
+            "10px";
+
+          explanation.textContent =
+            question.explanation || "";
+
+
+          item.appendChild(
+            questionTitle
+          );
+
+          item.appendChild(
+            yourAnswer
+          );
+
+          item.appendChild(
+            correctAnswer
+          );
+
+          if (
+            question.explanation
+          ) {
+
+            item.appendChild(
+              explanation
+            );
+
+          }
+
+
+          container.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       RESTART
+       ========================================================= */
+
+    function restartExam() {
+
+      currentQuestion = 0;
+
+      answers =
+        new Array(
+          examConfig.questions.length
+        ).fill(null);
+
+      flagged =
+        new Array(
+          examConfig.questions.length
+        ).fill(false);
+
+      submitted = false;
+
+      timeRemaining =
+        examConfig.timeLimitMinutes *
+        60;
+
+
+      document.getElementById(
+        "examScreen"
+      ).style.display =
+        "block";
+
+
+      document.getElementById(
+        "resultScreen"
+      ).style.display =
+        "none";
+
+
+      document.querySelector(
+        ".sidebar"
+      ).style.display =
+        "";
+
+
+      document.querySelector(
+        ".main"
+      ).style.marginLeft =
+        "";
+
+
+      document.querySelector(
+        ".main"
+      ).style.width =
+        "";
+
+
+      clearInterval(
+        timerInterval
+      );
+
+      renderQuestion();
+
+      updateProgress();
+
+      startTimer();
+
+    }
+
+
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
+
+    function toggleSidebar() {
+
+      document.getElementById(
+        "sidebar"
+      ).classList.toggle("open");
+
+    }
+
+
+    function closeSidebarOnMobile() {
+
+      if (
+        window.innerWidth <= 800
+      ) {
+
+        document.getElementById(
+          "sidebar"
+        ).classList.remove("open");
+
+      }
+
+    }
+
+
+    /* =========================================================
+       KEYBOARD SHORTCUTS
+       =========================================================
+
+       Arrow Left  = Previous
+       Arrow Right = Next
+       A-E          = Select answer
+       F            = Flag
+       ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (submitted) return;
+
+
+        if (
+          event.key ===
+          "ArrowLeft"
+        ) {
+
+          previousQuestion();
+
+        }
+
+
+        if (
+          event.key ===
+          "ArrowRight"
+        ) {
+
+          nextQuestion();
+
+        }
+
+
+        const key =
+          event.key.toUpperCase();
+
+
+        if (
+          ["A", "B", "C", "D", "E"].includes(
+            key
+          )
+        ) {
+
+          const index =
+            key.charCodeAt(0) -
+            65;
+
+
+          const question =
+            examConfig.questions[
+              currentQuestion
+            ];
+
+
+          if (
+            index <
+            question.options.length
+          ) {
+
+            selectAnswer(index);
+
+          }
+
+        }
+
+
+        if (
+          key === "F"
+        ) {
+
+          toggleFlag();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       PREVENT ACCIDENTAL PAGE EXIT
+       ========================================================= */
+
+    window.addEventListener(
+      "beforeunload",
+      function(event) {
+
+        if (
+          !submitted &&
+          answers.some(
+            answer => answer !== null
+          )
+        ) {
+
+          event.preventDefault();
+
+          event.returnValue = "";
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
