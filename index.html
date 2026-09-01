@@ -8,628 +8,866 @@
 <title>MCQ Answer Sheet</title>
 
 <style>
-    :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --selected: #dbeafe;
-        --background: #f4f6f8;
-        --white: #ffffff;
-        --border: #d7dce3;
-        --text: #172033;
-        --muted: #667085;
-        --correct: #16a34a;
-        --incorrect: #dc2626;
-        --warning: #f59e0b;
-    }
 
-    * {
-        box-sizing: border-box;
-    }
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --selected: #dbeafe;
 
-    body {
-        margin: 0;
-        background: var(--background);
-        color: var(--text);
-        font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            Arial,
-            sans-serif;
-    }
+    --background: #f4f6f8;
+    --white: #ffffff;
 
-    /* =========================
-       HEADER
-    ========================= */
+    --border: #d7dce3;
+    --text: #172033;
+    --muted: #667085;
+
+    --correct: #16a34a;
+    --incorrect: #dc2626;
+    --warning: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    height: 70px;
+
+    background: var(--white);
+
+    border-bottom:
+        1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 24px;
+}
+
+.title-area {
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.logo {
+
+    width: 38px;
+    height: 38px;
+
+    background: var(--primary);
+
+    color: white;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+}
+
+h1 {
+
+    margin: 0;
+
+    font-size: 20px;
+}
+
+.counter {
+
+    padding: 8px 13px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container {
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding:
+        25px
+        20px
+        50px;
+}
+
+
+.instructions {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 18px 20px;
+
+    margin-bottom: 18px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+.instructions strong {
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   ANSWER SHEET
+========================================================= */
+
+.sheet {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 2px 6px
+        rgba(0,0,0,0.03);
+}
+
+
+.sheet-header {
+
+    display: grid;
+
+    grid-template-columns:
+        100px
+        repeat(5, 1fr);
+
+    background: #f8fafc;
+
+    border-bottom:
+        2px solid var(--border);
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.sheet-header div {
+
+    padding: 14px 8px;
+}
+
+
+.answer-row {
+
+    display: grid;
+
+    grid-template-columns:
+        100px
+        repeat(5, 1fr);
+
+    border-bottom:
+        1px solid #e7eaf0;
+
+    min-height: 62px;
+}
+
+.answer-row:last-child {
+
+    border-bottom: none;
+}
+
+.answer-row:hover {
+
+    background: #fafcff;
+}
+
+
+.question-number {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    border-right:
+        1px solid #e7eaf0;
+}
+
+
+.answer-cell {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    border-right:
+        1px solid #eef0f4;
+}
+
+
+.answer-cell:last-child {
+
+    border-right: none;
+}
+
+
+/* =========================================================
+   BUBBLES
+========================================================= */
+
+.bubble {
+
+    width: 27px;
+    height: 27px;
+
+    border:
+        2px solid #98a2b3;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.12s,
+        border-color 0.12s,
+        transform 0.12s;
+}
+
+.answer-cell:hover .bubble {
+
+    border-color:
+        var(--primary);
+
+    transform:
+        scale(1.08);
+}
+
+
+.answer-cell.selected {
+
+    background:
+        var(--selected);
+}
+
+
+.answer-cell.selected .bubble {
+
+    border-color:
+        var(--primary);
+
+    background:
+        var(--primary);
+}
+
+
+.answer-cell.selected
+.bubble::after {
+
+    content: "";
+
+    width: 9px;
+    height: 9px;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+
+    margin-top: 18px;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.control-group {
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+}
+
+
+.btn {
+
+    border:
+        1px solid var(--border);
+
+    background: white;
+
+    color: var(--text);
+
+    border-radius: 8px;
+
+    padding:
+        10px
+        16px;
+
+    cursor: pointer;
+
+    font-weight: 650;
+}
+
+.btn:hover {
+
+    background: #f8fafc;
+}
+
+
+.btn-primary {
+
+    background:
+        var(--primary);
+
+    border-color:
+        var(--primary);
+
+    color: white;
+}
+
+.btn-primary:hover {
+
+    background:
+        var(--primary-dark);
+}
+
+
+.btn-warning {
+
+    background:
+        #fffbeb;
+
+    border-color:
+        #fcd34d;
+
+    color:
+        #92400e;
+}
+
+
+/* =========================================================
+   ANSWER KEY
+========================================================= */
+
+.answer-key-panel {
+
+    display: none;
+
+    margin-top: 18px;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 22px;
+}
+
+.answer-key-panel.visible {
+
+    display: block;
+}
+
+
+.answer-key-panel h2 {
+
+    margin:
+        0 0 8px;
+
+    font-size: 19px;
+}
+
+
+.answer-key-panel p {
+
+    color:
+        var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+.key-input {
+
+    width: 100%;
+
+    min-height: 130px;
+
+    resize: vertical;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding: 12px;
+
+    font-family: monospace;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.key-input:focus {
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,0.10);
+}
+
+
+.example {
+
+    margin-top: 12px;
+
+    background:
+        #f8fafc;
+
+    border-radius: 8px;
+
+    padding: 14px;
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+.error-message {
+
+    display: none;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    background:
+        #fef2f2;
+
+    border:
+        1px solid #fecaca;
+
+    color:
+        #991b1b;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    white-space: pre-line;
+}
+
+.error-message.visible {
+
+    display: block;
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.results {
+
+    display: none;
+
+    margin-top: 18px;
+}
+
+.results.visible {
+
+    display: block;
+}
+
+
+.result-card {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    text-align: center;
+}
+
+
+.score {
+
+    font-size: 52px;
+
+    font-weight: 800;
+
+    color:
+        var(--primary);
+
+    margin: 5px 0;
+}
+
+
+.score-description {
+
+    color:
+        var(--muted);
+}
+
+
+.result-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 22px;
+}
+
+
+.stat {
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 9px;
+
+    padding: 15px;
+}
+
+
+.stat-number {
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+
+.stat-label {
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+}
+
+
+.correct-number {
+
+    color:
+        var(--correct);
+}
+
+
+.incorrect-number {
+
+    color:
+        var(--incorrect);
+}
+
+
+.unanswered-number {
+
+    color:
+        var(--warning);
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+.review {
+
+    margin-top: 25px;
+
+    text-align: left;
+}
+
+
+.review h3 {
+
+    margin-bottom: 12px;
+}
+
+
+.review-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(80px, 1fr)
+        );
+
+    gap: 7px;
+}
+
+
+.review-item {
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 7px;
+
+    padding:
+        8px 5px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+.review-item.correct {
+
+    background:
+        #f0fdf4;
+
+    border-color:
+        #86efac;
+
+    color:
+        var(--correct);
+}
+
+
+.review-item.incorrect {
+
+    background:
+        #fef2f2;
+
+    border-color:
+        #fca5a5;
+
+    color:
+        var(--incorrect);
+}
+
+
+.review-item.unanswered {
+
+    background:
+        #fffbeb;
+
+    border-color:
+        #fcd34d;
+
+    color:
+        #92400e;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
 
     header {
-        position: sticky;
-        top: 0;
-        z-index: 100;
 
-        height: 70px;
+        height: 62px;
 
-        background: var(--white);
-        border-bottom: 1px solid var(--border);
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        padding: 0 24px;
-    }
-
-    .title-area {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .logo {
-        width: 38px;
-        height: 38px;
-
-        background: var(--primary);
-        color: white;
-
-        border-radius: 9px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-weight: 800;
-        font-size: 18px;
+        padding:
+            0 12px;
     }
 
     h1 {
-        margin: 0;
-        font-size: 20px;
+
+        font-size: 16px;
     }
 
-    .header-info {
-        display: flex;
-        gap: 10px;
-        align-items: center;
+    .logo {
+
+        width: 32px;
+        height: 32px;
     }
 
     .counter {
-        padding: 8px 13px;
 
-        background: #f8fafc;
-        border: 1px solid var(--border);
-        border-radius: 8px;
+        font-size: 12px;
 
-        font-size: 14px;
-        font-weight: 600;
+        padding:
+            7px 9px;
     }
-
-    /* =========================
-       MAIN
-    ========================= */
 
     .container {
-        max-width: 1100px;
-        margin: 0 auto;
 
-        padding: 25px 20px 50px;
+        padding:
+            15px
+            8px
+            30px;
     }
 
-    .instructions {
-        background: var(--white);
+    .sheet-header,
+    .answer-row {
 
-        border: 1px solid var(--border);
-        border-radius: 12px;
-
-        padding: 18px 20px;
-
-        margin-bottom: 18px;
-
-        color: var(--muted);
-        font-size: 14px;
-    }
-
-    .instructions strong {
-        color: var(--text);
-    }
-
-    /* =========================
-       ANSWER SHEET
-    ========================= */
-
-    .sheet {
-        background: var(--white);
-
-        border: 1px solid var(--border);
-        border-radius: 12px;
-
-        overflow: hidden;
-
-        box-shadow:
-            0 2px 6px rgba(0,0,0,0.03);
-    }
-
-    .sheet-header {
-        display: grid;
-
-        grid-template-columns: 100px repeat(5, 1fr);
-
-        background: #f8fafc;
-
-        border-bottom: 2px solid var(--border);
-
-        font-weight: 700;
-        text-align: center;
+        grid-template-columns:
+            60px
+            repeat(5, 1fr);
     }
 
     .sheet-header div {
-        padding: 14px 8px;
-    }
 
-    .question-column {
-        text-align: center;
-    }
+        padding:
+            11px 3px;
 
-    .answer-row {
-        display: grid;
-
-        grid-template-columns: 100px repeat(5, 1fr);
-
-        border-bottom: 1px solid #e7eaf0;
-
-        min-height: 62px;
-
-        transition: background 0.15s;
-    }
-
-    .answer-row:last-child {
-        border-bottom: none;
-    }
-
-    .answer-row:hover {
-        background: #fafcff;
-    }
-
-    .question-number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-weight: 700;
-
-        border-right: 1px solid #e7eaf0;
-    }
-
-    .answer-cell {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        cursor: pointer;
-
-        border-right: 1px solid #eef0f4;
-
-        position: relative;
-    }
-
-    .answer-cell:last-child {
-        border-right: none;
-    }
-
-    /* =========================
-       BULLET / RADIO
-    ========================= */
-
-    .bubble {
-        width: 27px;
-        height: 27px;
-
-        border: 2px solid #98a2b3;
-
-        border-radius: 50%;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        transition:
-            background 0.12s,
-            border-color 0.12s,
-            transform 0.12s;
-    }
-
-    .answer-cell:hover .bubble {
-        border-color: var(--primary);
-        transform: scale(1.08);
-    }
-
-    .answer-cell.selected {
-        background: var(--selected);
-    }
-
-    .answer-cell.selected .bubble {
-        border-color: var(--primary);
-        background: var(--primary);
-    }
-
-    .answer-cell.selected .bubble::after {
-        content: "";
-
-        width: 9px;
-        height: 9px;
-
-        background: white;
-
-        border-radius: 50%;
-    }
-
-    /* =========================
-       FOOTER CONTROLS
-    ========================= */
-
-    .controls {
-        margin-top: 18px;
-
-        background: var(--white);
-
-        border: 1px solid var(--border);
-        border-radius: 12px;
-
-        padding: 18px;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        gap: 15px;
-    }
-
-    .control-left,
-    .control-right {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    button {
-        font: inherit;
-    }
-
-    .btn {
-        border: 1px solid var(--border);
-
-        background: white;
-        color: var(--text);
-
-        border-radius: 8px;
-
-        padding: 10px 16px;
-
-        cursor: pointer;
-
-        font-weight: 650;
-
-        transition: 0.15s;
-    }
-
-    .btn:hover {
-        background: #f8fafc;
-    }
-
-    .btn-primary {
-        background: var(--primary);
-        border-color: var(--primary);
-        color: white;
-    }
-
-    .btn-primary:hover {
-        background: var(--primary-dark);
-    }
-
-    .btn-danger {
-        background: white;
-        border-color: #fca5a5;
-        color: var(--incorrect);
-    }
-
-    .btn-danger:hover {
-        background: #fef2f2;
-    }
-
-    .btn-warning {
-        background: #fffbeb;
-        border-color: #fcd34d;
-        color: #92400e;
-    }
-
-    /* =========================
-       ANSWER KEY PANEL
-    ========================= */
-
-    .answer-key-panel {
-        display: none;
-
-        margin-top: 18px;
-
-        background: var(--white);
-
-        border: 1px solid var(--border);
-        border-radius: 12px;
-
-        padding: 22px;
-    }
-
-    .answer-key-panel.visible {
-        display: block;
-    }
-
-    .answer-key-panel h2 {
-        margin: 0 0 8px;
-        font-size: 19px;
-    }
-
-    .answer-key-panel p {
-        color: var(--muted);
-        font-size: 14px;
-        margin-top: 0;
-    }
-
-    .key-input {
-        width: 100%;
-
-        min-height: 100px;
-
-        resize: vertical;
-
-        border: 1px solid var(--border);
-        border-radius: 8px;
-
-        padding: 12px;
-
-        font-family: monospace;
-        font-size: 15px;
-
-        outline: none;
-    }
-
-    .key-input:focus {
-        border-color: var(--primary);
-
-        box-shadow:
-            0 0 0 3px rgba(37,99,235,0.10);
-    }
-
-    .key-format {
-        background: #f8fafc;
-
-        border-radius: 7px;
-
-        padding: 10px;
-
-        margin-top: 10px;
-
-        font-family: monospace;
         font-size: 13px;
     }
 
-    /* =========================
-       RESULTS
-    ========================= */
+    .answer-row {
 
-    .results {
-        display: none;
-
-        margin-top: 18px;
+        min-height: 53px;
     }
 
-    .results.visible {
-        display: block;
+    .bubble {
+
+        width: 23px;
+        height: 23px;
     }
 
-    .result-card {
-        background: white;
+    .answer-cell.selected
+    .bubble::after {
 
-        border: 1px solid var(--border);
-        border-radius: 12px;
-
-        padding: 28px;
-
-        text-align: center;
+        width: 8px;
+        height: 8px;
     }
 
-    .score {
-        font-size: 48px;
-        font-weight: 800;
+    .controls {
 
-        color: var(--primary);
+        flex-direction: column;
 
-        margin: 5px 0;
+        align-items: stretch;
     }
 
-    .score-description {
-        color: var(--muted);
+    .control-group {
+
+        width: 100%;
+    }
+
+    .btn {
+
+        flex: 1;
     }
 
     .result-stats {
-        display: grid;
-
-        grid-template-columns: repeat(3, 1fr);
-
-        gap: 12px;
-
-        margin-top: 22px;
-    }
-
-    .stat {
-        border: 1px solid var(--border);
-
-        border-radius: 9px;
-
-        padding: 15px;
-    }
-
-    .stat-number {
-        font-size: 25px;
-        font-weight: 800;
-    }
-
-    .stat-label {
-        color: var(--muted);
-        font-size: 12px;
-    }
-
-    .correct-number {
-        color: var(--correct);
-    }
-
-    .incorrect-number {
-        color: var(--incorrect);
-    }
-
-    .unanswered-number {
-        color: var(--warning);
-    }
-
-    /* =========================
-       REVIEW GRID
-    ========================= */
-
-    .review {
-        margin-top: 25px;
-
-        text-align: left;
-    }
-
-    .review h3 {
-        margin-bottom: 12px;
-    }
-
-    .review-grid {
-        display: grid;
 
         grid-template-columns:
-            repeat(auto-fill, minmax(75px, 1fr));
-
-        gap: 7px;
+            repeat(2, 1fr);
     }
+}
 
-    .review-item {
-        border: 1px solid var(--border);
-
-        border-radius: 7px;
-
-        padding: 8px 5px;
-
-        text-align: center;
-
-        font-size: 12px;
-    }
-
-    .review-item.correct {
-        background: #f0fdf4;
-        border-color: #86efac;
-        color: var(--correct);
-    }
-
-    .review-item.incorrect {
-        background: #fef2f2;
-        border-color: #fca5a5;
-        color: var(--incorrect);
-    }
-
-    .review-item.unanswered {
-        background: #fffbeb;
-        border-color: #fcd34d;
-        color: #92400e;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 650px) {
-
-        header {
-            height: 62px;
-            padding: 0 12px;
-        }
-
-        h1 {
-            font-size: 16px;
-        }
-
-        .logo {
-            width: 32px;
-            height: 32px;
-        }
-
-        .counter {
-            font-size: 12px;
-            padding: 7px 9px;
-        }
-
-        .container {
-            padding: 15px 8px 30px;
-        }
-
-        .sheet-header,
-        .answer-row {
-            grid-template-columns:
-                60px repeat(5, 1fr);
-        }
-
-        .sheet-header div {
-            padding: 11px 3px;
-            font-size: 13px;
-        }
-
-        .answer-row {
-            min-height: 53px;
-        }
-
-        .question-number {
-            font-size: 13px;
-        }
-
-        .bubble {
-            width: 23px;
-            height: 23px;
-        }
-
-        .answer-cell.selected .bubble::after {
-            width: 8px;
-            height: 8px;
-        }
-
-        .controls {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .control-left,
-        .control-right {
-            width: 100%;
-        }
-
-        .btn {
-            flex: 1;
-        }
-
-        .result-stats {
-            grid-template-columns: 1fr;
-        }
-    }
 </style>
 </head>
 
 
 <body>
 
-<!-- =========================
+
+<!-- =========================================================
      HEADER
-========================= -->
+========================================================= -->
 
 <header>
 
@@ -645,41 +883,49 @@
 
     </div>
 
-    <div class="header-info">
 
-        <div
-            class="counter"
-            id="answeredCounter"
-        >
-            0 / 100 answered
-        </div>
-
+    <div
+        class="counter"
+        id="answeredCounter"
+    >
+        0 / 100 answered
     </div>
 
 </header>
 
 
-<!-- =========================
+<!-- =========================================================
      MAIN
-========================= -->
+========================================================= -->
 
 <div class="container">
 
 
     <div class="instructions">
 
-        <strong>How to use:</strong>
-        Read your questions from your book and click
-        <strong>A, B, C, D, or E</strong> for each question.
-        No question text needs to be entered here.
-        Your answers are automatically saved in this browser.
+        <strong>Blank MCQ Answer Sheet</strong><br>
+
+        Select A–E for any question you are working on.
+        You can answer questions in any order and leave
+        all other questions blank.
+
+        <br><br>
+
+        When you are finished, click
+        <strong>Check Answers</strong> and enter the
+        answer key for only the questions you completed.
+
+        <br><br>
+
+        Example:
+        <strong>31-40: ABCDBCADEA</strong>
 
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          ANSWER SHEET
-    ========================= -->
+    ===================================================== -->
 
     <div class="sheet">
 
@@ -698,31 +944,30 @@
         </div>
 
 
-        <div id="answerSheet">
-            <!-- Rows generated by JavaScript -->
-        </div>
+        <div id="answerSheet"></div>
 
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          CONTROLS
-    ========================= -->
+    ===================================================== -->
 
     <div class="controls">
 
-        <div class="control-left">
+        <div class="control-group">
 
             <button
                 class="btn"
-                onclick="clearLastAnswer()"
+                onclick="undoLast()"
             >
                 Undo Last
             </button>
 
+
             <button
                 class="btn btn-warning"
-                onclick="clearAllAnswers()"
+                onclick="clearAll()"
             >
                 Clear All
             </button>
@@ -730,11 +975,11 @@
         </div>
 
 
-        <div class="control-right">
+        <div class="control-group">
 
             <button
                 class="btn btn-primary"
-                onclick="toggleAnswerKey()"
+                onclick="openAnswerKey()"
             >
                 Check Answers
             </button>
@@ -744,9 +989,9 @@
     </div>
 
 
-    <!-- =========================
-         ANSWER KEY
-    ========================= -->
+    <!-- =====================================================
+         ANSWER KEY PANEL
+    ===================================================== -->
 
     <div
         class="answer-key-panel"
@@ -757,47 +1002,80 @@
             Enter Answer Key
         </h2>
 
+
         <p>
-            Enter the correct answers from your book.
-            You can enter them as a continuous sequence
-            or as numbered answers.
+
+            You can check <strong>any range of questions</strong>.
+            You do not need to provide answers for questions
+            you did not study.
+
         </p>
 
 
         <textarea
-            class="key-input"
             id="answerKey"
-            placeholder="Example:
+            class="key-input"
+            placeholder="Examples:
 
-1 A
-2 C
-3 B
-4 D
-5 E
+31-40: ABCDBCDEAA
 
-or simply:
+or
 
-ACBDE..."
+31-40 ABCDBCDEAA
+
+or multiple ranges:
+
+5-10: BACDAB
+31-40: ABCDEABCDE
+71-75: CDBAA"
         ></textarea>
 
 
-        <div class="key-format">
+        <div class="example">
 
-            Accepted formats:
+            <strong>Range format:</strong><br>
+
+            31-40: ABCDEABCDE
+
             <br><br>
 
-            <strong>Numbered:</strong>
-            1A 2C 3B 4D 5E
+            Question 31 = A<br>
+            Question 32 = B<br>
+            Question 33 = C<br>
+            Question 34 = D<br>
+            Question 35 = E<br>
+            Question 36 = A<br>
+            Question 37 = B<br>
+            Question 38 = C<br>
+            Question 39 = D<br>
+            Question 40 = E
+
+            <br><br>
+
+            You can enter multiple ranges:
 
             <br>
 
-            <strong>Sequence:</strong>
-            ACBDE...
+            5-10: BACDAB<br>
+            31-40: ABCDEABCDE<br>
+            71-75: CDBAA
 
         </div>
 
 
-        <div style="margin-top:15px; display:flex; gap:10px;">
+        <div
+            class="error-message"
+            id="errorMessage"
+        ></div>
+
+
+        <div
+            style="
+                margin-top:15px;
+                display:flex;
+                gap:10px;
+            "
+        >
 
             <button
                 class="btn"
@@ -805,6 +1083,7 @@ ACBDE..."
             >
                 Cancel
             </button>
+
 
             <button
                 class="btn btn-primary"
@@ -818,9 +1097,9 @@ ACBDE..."
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          RESULTS
-    ========================= -->
+    ===================================================== -->
 
     <div
         class="results"
@@ -830,8 +1109,9 @@ ACBDE..."
         <div class="result-card">
 
             <div>
-                Your Score
+                Score
             </div>
+
 
             <div
                 class="score"
@@ -840,11 +1120,11 @@ ACBDE..."
                 0%
             </div>
 
+
             <div
                 class="score-description"
                 id="scoreDescription"
-            >
-            </div>
+            ></div>
 
 
             <div class="result-stats">
@@ -896,15 +1176,29 @@ ACBDE..."
 
                 </div>
 
+
+                <div class="stat">
+
+                    <div
+                        class="stat-number"
+                        id="questionsChecked"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Questions Checked
+                    </div>
+
+                </div>
+
             </div>
 
-
-            <!-- QUESTION REVIEW -->
 
             <div class="review">
 
                 <h3>
-                    Question Review
+                    Review
                 </h3>
 
                 <div
@@ -935,6 +1229,7 @@ ACBDE..."
 
 <script>
 
+
 /* =========================================================
    CONFIGURATION
 ========================================================= */
@@ -947,9 +1242,12 @@ const TOTAL_QUESTIONS = 100;
 ========================================================= */
 
 let answers =
-    new Array(TOTAL_QUESTIONS).fill(null);
+    new Array(
+        TOTAL_QUESTIONS
+    ).fill(null);
 
-let lastAnsweredQuestion = null;
+
+let lastQuestion = null;
 
 
 /* =========================================================
@@ -960,32 +1258,34 @@ function loadAnswers() {
 
     const saved =
         localStorage.getItem(
-            "mcqAnswerSheetAnswers"
+            "mcq_answer_sheet_v2"
         );
 
-    if (saved) {
 
-        try {
+    if (!saved) return;
 
-            const parsed =
-                JSON.parse(saved);
 
-            if (
-                Array.isArray(parsed) &&
-                parsed.length === TOTAL_QUESTIONS
-            ) {
+    try {
 
-                answers = parsed;
+        const parsed =
+            JSON.parse(saved);
 
-            }
 
-        } catch (error) {
+        if (
+            Array.isArray(parsed) &&
+            parsed.length ===
+            TOTAL_QUESTIONS
+        ) {
 
-            console.log(
-                "Could not load saved answers."
-            );
+            answers = parsed;
 
         }
+
+    } catch (error) {
+
+        console.log(
+            "Saved answers could not be loaded."
+        );
 
     }
 
@@ -993,13 +1293,13 @@ function loadAnswers() {
 
 
 /* =========================================================
-   SAVE ANSWERS
+   SAVE
 ========================================================= */
 
 function saveAnswers() {
 
     localStorage.setItem(
-        "mcqAnswerSheetAnswers",
+        "mcq_answer_sheet_v2",
         JSON.stringify(answers)
     );
 
@@ -1007,47 +1307,54 @@ function saveAnswers() {
 
 
 /* =========================================================
-   CREATE ANSWER SHEET
+   CREATE SHEET
 ========================================================= */
 
-function createAnswerSheet() {
+function createSheet() {
 
     const sheet =
         document.getElementById(
             "answerSheet"
         );
 
+
     sheet.innerHTML = "";
 
 
     for (
-        let question = 0;
-        question < TOTAL_QUESTIONS;
-        question++
+        let q = 0;
+        q < TOTAL_QUESTIONS;
+        q++
     ) {
 
         const row =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         row.className =
             "answer-row";
 
 
-        /* Question number */
-
         const number =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         number.className =
             "question-number";
 
+
         number.textContent =
-            question + 1;
-
-        row.appendChild(number);
+            q + 1;
 
 
-        /* A-E */
+        row.appendChild(
+            number
+        );
+
 
         for (
             let option = 0;
@@ -1056,14 +1363,17 @@ function createAnswerSheet() {
         ) {
 
             const cell =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             cell.className =
                 "answer-cell";
 
 
             if (
-                answers[question] === option
+                answers[q] === option
             ) {
 
                 cell.classList.add(
@@ -1074,7 +1384,10 @@ function createAnswerSheet() {
 
 
             const bubble =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             bubble.className =
                 "bubble";
@@ -1085,22 +1398,27 @@ function createAnswerSheet() {
             );
 
 
-            cell.onclick = function() {
+            cell.onclick =
+                function() {
 
-                selectAnswer(
-                    question,
-                    option
-                );
+                    selectAnswer(
+                        q,
+                        option
+                    );
 
-            };
+                };
 
 
-            row.appendChild(cell);
+            row.appendChild(
+                cell
+            );
 
         }
 
 
-        sheet.appendChild(row);
+        sheet.appendChild(
+            row
+        );
 
     }
 
@@ -1115,21 +1433,25 @@ function createAnswerSheet() {
 ========================================================= */
 
 function selectAnswer(
-    questionIndex,
-    optionIndex
+    question,
+    option
 ) {
 
-    answers[questionIndex] =
-        optionIndex;
+    answers[question] =
+        option;
 
-    lastAnsweredQuestion =
-        questionIndex;
+
+    lastQuestion =
+        question;
+
 
     saveAnswers();
 
-    refreshQuestionRow(
-        questionIndex
+
+    refreshRow(
+        question
     );
+
 
     updateCounter();
 
@@ -1137,11 +1459,11 @@ function selectAnswer(
 
 
 /* =========================================================
-   REFRESH SINGLE ROW
+   REFRESH ROW
 ========================================================= */
 
-function refreshQuestionRow(
-    questionIndex
+function refreshRow(
+    question
 ) {
 
     const rows =
@@ -1149,8 +1471,10 @@ function refreshQuestionRow(
             ".answer-row"
         );
 
+
     const row =
-        rows[questionIndex];
+        rows[question];
+
 
     if (!row) return;
 
@@ -1162,7 +1486,10 @@ function refreshQuestionRow(
 
 
     cells.forEach(
-        (cell, optionIndex) => {
+        (
+            cell,
+            option
+        ) => {
 
             cell.classList.remove(
                 "selected"
@@ -1170,8 +1497,8 @@ function refreshQuestionRow(
 
 
             if (
-                answers[questionIndex] ===
-                optionIndex
+                answers[question] ===
+                option
             ) {
 
                 cell.classList.add(
@@ -1187,15 +1514,15 @@ function refreshQuestionRow(
 
 
 /* =========================================================
-   UPDATE ANSWER COUNTER
+   COUNTER
 ========================================================= */
 
 function updateCounter() {
 
     const answered =
         answers.filter(
-            answer =>
-                answer !== null
+            value =>
+                value !== null
         ).length;
 
 
@@ -1208,17 +1535,17 @@ function updateCounter() {
 
 
 /* =========================================================
-   UNDO LAST
+   UNDO
 ========================================================= */
 
-function clearLastAnswer() {
+function undoLast() {
 
     if (
-        lastAnsweredQuestion === null
+        lastQuestion === null
     ) {
 
         alert(
-            "No answer to undo."
+            "There is no recent answer to undo."
         );
 
         return;
@@ -1226,12 +1553,12 @@ function clearLastAnswer() {
     }
 
 
-    answers[lastAnsweredQuestion] =
+    answers[lastQuestion] =
         null;
 
 
-    refreshQuestionRow(
-        lastAnsweredQuestion
+    refreshRow(
+        lastQuestion
     );
 
 
@@ -1240,7 +1567,7 @@ function clearLastAnswer() {
     updateCounter();
 
 
-    lastAnsweredQuestion =
+    lastQuestion =
         null;
 
 }
@@ -1250,11 +1577,11 @@ function clearLastAnswer() {
    CLEAR ALL
 ========================================================= */
 
-function clearAllAnswers() {
+function clearAll() {
 
     const confirmed =
         confirm(
-            "Clear all selected answers?"
+            "Are you sure you want to clear all 100 answers?"
         );
 
 
@@ -1267,13 +1594,13 @@ function clearAllAnswers() {
         ).fill(null);
 
 
-    lastAnsweredQuestion =
+    lastQuestion =
         null;
 
 
     saveAnswers();
 
-    createAnswerSheet();
+    createSheet();
 
 }
 
@@ -1282,31 +1609,29 @@ function clearAllAnswers() {
    ANSWER KEY PANEL
 ========================================================= */
 
-function toggleAnswerKey() {
+function openAnswerKey() {
 
-    const panel =
-        document.getElementById(
-            "answerKeyPanel"
-        );
-
-
-    panel.classList.toggle(
+    document.getElementById(
+        "answerKeyPanel"
+    ).classList.add(
         "visible"
     );
 
 
-    if (
-        panel.classList.contains(
-            "visible"
-        )
-    ) {
+    document.getElementById(
+        "answerKey"
+    ).focus();
 
-        panel.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
 
-    }
+    window.scrollTo({
+        top:
+            document.getElementById(
+                "answerKeyPanel"
+            ).offsetTop - 80,
+
+        behavior:
+            "smooth"
+    });
 
 }
 
@@ -1319,132 +1644,301 @@ function closeAnswerKey() {
         "visible"
     );
 
+
+    clearError();
+
 }
 
 
 /* =========================================================
-   PARSE ANSWER KEY
+   SHOW ERROR
 ========================================================= */
 
-function parseAnswerKey(text) {
+function showError(
+    message
+) {
 
-    text =
-        text
-            .toUpperCase()
-            .trim();
+    const box =
+        document.getElementById(
+            "errorMessage"
+        );
 
 
-    if (!text) {
+    box.textContent =
+        message;
 
-        return null;
 
-    }
+    box.classList.add(
+        "visible"
+    );
+
+}
+
+
+function clearError() {
+
+    const box =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    box.textContent =
+        "";
+
+
+    box.classList.remove(
+        "visible"
+    );
+
+}
+
+
+/* =========================================================
+   PARSE RANGE ANSWER KEY
+=========================================================
+
+   Supported:
+
+   31-40: ABCDEABCDE
+
+   31-40 ABCDEABCDE
+
+   31–40: ABCDEABCDE
+
+   Multiple ranges:
+
+   5-10: BACDAB
+   31-40: ABCDEABCDE
+   71-75: CDBAA
+
+========================================================= */
+
+function parseRangeAnswerKey(
+    input
+) {
+
+    clearError();
+
+
+    const key = {};
 
 
     /*
-       First attempt:
-
-       Numbered format
-
-       1A 2B 3C
-       1 A
-       2 B
-       etc.
+       Normalize the text.
     */
 
-    const numbered =
-        {};
+    let text =
+        input
+            .toUpperCase()
+            .replace(
+                /–/g,
+                "-"
+            )
+            .replace(
+                /—/g,
+                "-"
+            );
 
-    const regex =
-        /(\d{1,3})\s*[:.)-]?\s*([ABCDE])/g;
+
+    /*
+       Split into lines.
+
+       This makes it easy to enter:
+
+       31-40: ABCDEABCDE
+       71-75: CDBAA
+    */
+
+    const lines =
+        text
+            .split(/\n/)
+            .map(
+                line =>
+                    line.trim()
+            )
+            .filter(
+                line =>
+                    line.length > 0
+            );
 
 
-    let match;
+    /*
+       Also allow semicolon-separated
+       ranges on one line.
+    */
+
+    const expandedLines = [];
 
 
-    while (
-        (match = regex.exec(text))
-        !== null
+    lines.forEach(
+        line => {
+
+            const parts =
+                line
+                    .split(";")
+                    .map(
+                        part =>
+                            part.trim()
+                    )
+                    .filter(
+                        part =>
+                            part.length > 0
+                    );
+
+
+            expandedLines.push(
+                ...parts
+            );
+
+        }
+    );
+
+
+    /*
+       Parse every range.
+    */
+
+    for (
+        const line of expandedLines
     ) {
 
-        const question =
+        /*
+           Expected:
+
+           31-40: ABCDEABCDE
+
+           or
+
+           31-40 ABCDEABCDE
+        */
+
+        const match =
+            line.match(
+                /^\s*(\d+)\s*-\s*(\d+)\s*(?::|\s)\s*([A-Z]+)\s*$/
+            );
+
+
+        if (!match) {
+
+            showError(
+                `Could not understand this line:\n\n${line}\n\nUse this format:\n31-40: ABCDEABCDE`
+            );
+
+            return null;
+
+        }
+
+
+        const start =
             parseInt(
                 match[1],
                 10
             );
 
 
-        const answer =
-            match[2];
+        const end =
+            parseInt(
+                match[2],
+                10
+            );
+
+
+        const sequence =
+            match[3];
+
+
+        /*
+           Validate question numbers.
+        */
+
+        if (
+            start < 1 ||
+            end > TOTAL_QUESTIONS ||
+            start > end
+        ) {
+
+            showError(
+                `Invalid question range: ${start}-${end}\n\nValid range: 1-${TOTAL_QUESTIONS}`
+            );
+
+            return null;
+
+        }
+
+
+        /*
+           Expected number of answers.
+        */
+
+        const expectedLength =
+            end - start + 1;
 
 
         if (
-            question >= 1 &&
-            question <= TOTAL_QUESTIONS
+            sequence.length !==
+            expectedLength
         ) {
 
-            numbered[
-                question - 1
-            ] = answer;
+            showError(
+                `Range ${start}-${end} contains ${expectedLength} questions, but you entered ${sequence.length} answers.\n\nPlease enter exactly ${expectedLength} answers.`
+            );
+
+            return null;
+
+        }
+
+
+        /*
+           Validate A-E.
+        */
+
+        for (
+            let i = 0;
+            i < sequence.length;
+            i++
+        ) {
+
+            const letter =
+                sequence[i];
+
+
+            if (
+                ![
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E"
+                ].includes(
+                    letter
+                )
+            ) {
+
+                showError(
+                    `Invalid answer "${letter}" in range ${start}-${end}.\n\nOnly A, B, C, D, or E are allowed.`
+                );
+
+                return null;
+
+            }
+
+
+            const questionNumber =
+                start + i;
+
+
+            key[
+                questionNumber
+            ] =
+                letter;
 
         }
 
     }
 
 
-    /*
-       If numbered answers were found,
-       use them.
-    */
-
-    if (
-        Object.keys(numbered).length > 0
-    ) {
-
-        return numbered;
-
-    }
-
-
-    /*
-       Otherwise treat it as a continuous
-       answer sequence.
-
-       Remove everything except A-E.
-    */
-
-    const sequence =
-        text.replace(
-            /[^ABCDE]/g,
-            ""
-        );
-
-
-    if (!sequence) {
-
-        return null;
-
-    }
-
-
-    const sequenceAnswers =
-        {};
-
-
-    for (
-        let i = 0;
-        i < sequence.length &&
-        i < TOTAL_QUESTIONS;
-        i++
-    ) {
-
-        sequenceAnswers[i] =
-            sequence[i];
-
-    }
-
-
-    return sequenceAnswers;
+    return key;
 
 }
 
@@ -1455,26 +1949,45 @@ function parseAnswerKey(text) {
 
 function checkAnswers() {
 
-    const text =
+    const input =
         document.getElementById(
             "answerKey"
         ).value;
 
 
-    const key =
-        parseAnswerKey(text);
+    if (
+        !input.trim()
+    ) {
 
-
-    if (!key) {
-
-        alert(
-            "Please enter an answer key first."
+        showError(
+            "Please enter at least one answer range."
         );
 
         return;
 
     }
 
+
+    const key =
+        parseRangeAnswerKey(
+            input
+        );
+
+
+    if (!key) return;
+
+
+    const keyQuestions =
+        Object.keys(key)
+            .map(
+                Number
+            );
+
+
+    /*
+       Check only questions that
+       appear in the answer key.
+    */
 
     let correct = 0;
 
@@ -1486,114 +1999,114 @@ function checkAnswers() {
     const results = [];
 
 
-    for (
-        let i = 0;
-        i < TOTAL_QUESTIONS;
-        i++
-    ) {
+    keyQuestions
+        .sort(
+            (a,b) =>
+                a - b
+        )
+        .forEach(
+            questionNumber => {
 
-        const userAnswer =
-            answers[i];
-
-
-        const correctLetter =
-            key[i];
+                const index =
+                    questionNumber - 1;
 
 
-        if (
-            !correctLetter
-        ) {
-
-            results.push({
-                number: i + 1,
-                status: "unanswered",
-                user: userAnswer,
-                correct: null
-            });
-
-            continue;
-
-        }
+                const correctLetter =
+                    key[
+                        questionNumber
+                    ];
 
 
-        const correctIndex =
-            correctLetter.charCodeAt(0) -
-            65;
+                const correctIndex =
+                    correctLetter.charCodeAt(0)
+                    - 65;
 
 
-        if (
-            userAnswer === null
-        ) {
-
-            unanswered++;
-
-            results.push({
-                number: i + 1,
-                status: "unanswered",
-                user: null,
-                correct: correctIndex
-            });
-
-        }
-
-        else if (
-            userAnswer === correctIndex
-        ) {
-
-            correct++;
-
-            results.push({
-                number: i + 1,
-                status: "correct",
-                user: userAnswer,
-                correct: correctIndex
-            });
-
-        }
-
-        else {
-
-            incorrect++;
-
-            results.push({
-                number: i + 1,
-                status: "incorrect",
-                user: userAnswer,
-                correct: correctIndex
-            });
-
-        }
-
-    }
+                const userAnswer =
+                    answers[index];
 
 
-    /*
-       Questions without a supplied key
-       are not counted in the score.
-    */
+                if (
+                    userAnswer === null
+                ) {
 
-    const questionsWithKey =
-        Object.keys(key).length;
+                    unanswered++;
 
 
-    if (
-        questionsWithKey === 0
-    ) {
+                    results.push({
+                        number:
+                            questionNumber,
 
-        alert(
-            "No valid answers were found in the answer key."
+                        status:
+                            "unanswered",
+
+                        user:
+                            null,
+
+                        correct:
+                            correctIndex
+                    });
+
+                }
+
+                else if (
+                    userAnswer ===
+                    correctIndex
+                ) {
+
+                    correct++;
+
+
+                    results.push({
+                        number:
+                            questionNumber,
+
+                        status:
+                            "correct",
+
+                        user:
+                            userAnswer,
+
+                        correct:
+                            correctIndex
+                    });
+
+                }
+
+                else {
+
+                    incorrect++;
+
+
+                    results.push({
+                        number:
+                            questionNumber,
+
+                        status:
+                            "incorrect",
+
+                        user:
+                            userAnswer,
+
+                        correct:
+                            correctIndex
+                    });
+
+                }
+
+            }
         );
 
-        return;
 
-    }
+    const totalChecked =
+        keyQuestions.length;
 
 
     const percentage =
         Math.round(
             (
                 correct /
-                questionsWithKey
+                totalChecked
             ) * 100
         );
 
@@ -1602,7 +2115,7 @@ function checkAnswers() {
         correct,
         incorrect,
         unanswered,
-        questionsWithKey,
+        totalChecked,
         percentage,
         results
     );
@@ -1618,7 +2131,7 @@ function displayResults(
     correct,
     incorrect,
     unanswered,
-    questionsWithKey,
+    totalChecked,
     percentage,
     results
 ) {
@@ -1632,7 +2145,7 @@ function displayResults(
     document.getElementById(
         "scoreDescription"
     ).textContent =
-        `${correct} correct out of ${questionsWithKey} questions with an answer key.`;
+        `Score calculated from ${totalChecked} question${totalChecked === 1 ? "" : "s"}.`;
 
 
     document.getElementById(
@@ -1653,6 +2166,12 @@ function displayResults(
         unanswered;
 
 
+    document.getElementById(
+        "questionsChecked"
+    ).textContent =
+        totalChecked;
+
+
     const grid =
         document.getElementById(
             "reviewGrid"
@@ -1666,7 +2185,9 @@ function displayResults(
         result => {
 
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             item.className =
@@ -1681,28 +2202,31 @@ function displayResults(
                 result.user === null
             ) {
 
-                text += "—";
+                text +=
+                    "—";
 
-            } else {
+            }
+
+            else {
 
                 text +=
                     String.fromCharCode(
-                        65 + result.user
+                        65 +
+                        result.user
                     );
 
             }
 
 
-            if (
-                result.correct !== null
-            ) {
+            text +=
+                " / ";
 
-                text +=
-                    ` / ${String.fromCharCode(
-                        65 + result.correct
-                    )}`;
 
-            }
+            text +=
+                String.fromCharCode(
+                    65 +
+                    result.correct
+                );
 
 
             item.textContent =
@@ -1727,8 +2251,11 @@ function displayResults(
     document.getElementById(
         "results"
     ).scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+        behavior:
+            "smooth",
+
+        block:
+            "start"
     });
 
 }
@@ -1753,17 +2280,14 @@ function hideResults() {
    KEYBOARD SHORTCUTS
 =========================================================
 
-   Number keys are NOT used because the user may
-   accidentally trigger answers while reading.
+   A = select A
+   B = select B
+   C = select C
+   D = select D
+   E = select E
 
-   A = answer A
-   B = answer B
-   C = answer C
-   D = answer D
-   E = answer E
-
-   Arrow keys can move between questions only
-   if desired in the future.
+   This is useful if you are answering
+   many questions rapidly.
 
 ========================================================= */
 
@@ -1774,7 +2298,7 @@ function hideResults() {
 
 loadAnswers();
 
-createAnswerSheet();
+createSheet();
 
 
 </script>
