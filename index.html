@@ -32,7 +32,6 @@
 
 body {
     margin: 0;
-
     background: var(--background);
     color: var(--text);
 
@@ -56,7 +55,7 @@ header {
     top: 0;
     z-index: 100;
 
-    height: 70px;
+    min-height: 70px;
 
     background: var(--white);
 
@@ -67,7 +66,9 @@ header {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 24px;
+    padding: 10px 24px;
+
+    gap: 20px;
 }
 
 .title-area {
@@ -101,6 +102,15 @@ h1 {
     margin: 0;
 
     font-size: 20px;
+}
+
+.header-info {
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
 }
 
 .counter {
@@ -137,7 +147,11 @@ h1 {
 }
 
 
-.instructions {
+/* =========================================================
+   CHAPTER NAME
+========================================================= */
+
+.chapter-box {
 
     background: white;
 
@@ -147,6 +161,72 @@ h1 {
     border-radius: 12px;
 
     padding: 18px 20px;
+
+    margin-bottom: 18px;
+}
+
+.chapter-label {
+
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: var(--muted);
+
+    margin-bottom: 7px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.04em;
+}
+
+.chapter-input {
+
+    width: 100%;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding:
+        12px 13px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    outline: none;
+}
+
+.chapter-input:focus {
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,0.10);
+}
+
+
+/* =========================================================
+   INSTRUCTIONS
+========================================================= */
+
+.instructions {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding:
+        18px 20px;
 
     margin-bottom: 18px;
 
@@ -192,7 +272,8 @@ h1 {
         100px
         repeat(5, 1fr);
 
-    background: #f8fafc;
+    background:
+        #f8fafc;
 
     border-bottom:
         2px solid var(--border);
@@ -204,7 +285,8 @@ h1 {
 
 .sheet-header div {
 
-    padding: 14px 8px;
+    padding:
+        14px 8px;
 }
 
 
@@ -229,7 +311,8 @@ h1 {
 
 .answer-row:hover {
 
-    background: #fafcff;
+    background:
+        #fafcff;
 }
 
 
@@ -383,8 +466,7 @@ h1 {
     border-radius: 8px;
 
     padding:
-        10px
-        16px;
+        10px 16px;
 
     cursor: pointer;
 
@@ -393,7 +475,8 @@ h1 {
 
 .btn:hover {
 
-    background: #f8fafc;
+    background:
+        #f8fafc;
 }
 
 
@@ -429,7 +512,7 @@ h1 {
 
 
 /* =========================================================
-   ANSWER KEY
+   ANSWER KEY PANEL
 ========================================================= */
 
 .answer-key-panel {
@@ -489,7 +572,8 @@ h1 {
 
     padding: 12px;
 
-    font-family: monospace;
+    font-family:
+        monospace;
 
     font-size: 15px;
 
@@ -518,7 +602,8 @@ h1 {
 
     padding: 14px;
 
-    font-family: monospace;
+    font-family:
+        monospace;
 
     font-size: 13px;
 
@@ -597,7 +682,8 @@ h1 {
     color:
         var(--primary);
 
-    margin: 5px 0;
+    margin:
+        5px 0;
 }
 
 
@@ -684,7 +770,8 @@ h1 {
 
 .review h3 {
 
-    margin-bottom: 12px;
+    margin-bottom:
+        12px;
 }
 
 
@@ -767,26 +854,32 @@ h1 {
 
     header {
 
-        height: 62px;
+        min-height:
+            62px;
 
         padding:
-            0 12px;
+            8px 12px;
     }
 
     h1 {
 
-        font-size: 16px;
+        font-size:
+            16px;
     }
 
     .logo {
 
-        width: 32px;
-        height: 32px;
+        width:
+            32px;
+
+        height:
+            32px;
     }
 
     .counter {
 
-        font-size: 12px;
+        font-size:
+            12px;
 
         padding:
             7px 9px;
@@ -813,42 +906,54 @@ h1 {
         padding:
             11px 3px;
 
-        font-size: 13px;
+        font-size:
+            13px;
     }
 
     .answer-row {
 
-        min-height: 53px;
+        min-height:
+            53px;
     }
 
     .bubble {
 
-        width: 23px;
-        height: 23px;
+        width:
+            23px;
+
+        height:
+            23px;
     }
 
     .answer-cell.selected
     .bubble::after {
 
-        width: 8px;
-        height: 8px;
+        width:
+            8px;
+
+        height:
+            8px;
     }
 
     .controls {
 
-        flex-direction: column;
+        flex-direction:
+            column;
 
-        align-items: stretch;
+        align-items:
+            stretch;
     }
 
     .control-group {
 
-        width: 100%;
+        width:
+            100%;
     }
 
     .btn {
 
-        flex: 1;
+        flex:
+            1;
     }
 
     .result-stats {
@@ -856,6 +961,407 @@ h1 {
         grid-template-columns:
             repeat(2, 1fr);
     }
+}
+
+
+/* =========================================================
+   PRINT STYLES
+========================================================= */
+
+@media print {
+
+    @page {
+
+        size: letter portrait;
+
+        margin:
+            0.5in;
+    }
+
+
+    body {
+
+        background:
+            white;
+
+        color:
+            black;
+    }
+
+
+    /*
+       Hide the normal website.
+    */
+
+    body > header,
+    body > .container {
+
+        display:
+            none !important;
+    }
+
+
+    /*
+       Show only the special
+       print sheet.
+    */
+
+    #printSheet {
+
+        display:
+            block !important;
+
+        width:
+            100%;
+    }
+
+
+    .print-title {
+
+        text-align:
+            center;
+
+        font-size:
+            22px;
+
+        font-weight:
+            800;
+
+        margin-bottom:
+            4px;
+    }
+
+
+    .print-chapter {
+
+        text-align:
+            center;
+
+        font-size:
+            18px;
+
+        font-weight:
+            700;
+
+        margin-bottom:
+            5px;
+    }
+
+
+    .print-subtitle {
+
+        text-align:
+            center;
+
+        font-size:
+            12px;
+
+        margin-bottom:
+            15px;
+
+        color:
+            #444;
+    }
+
+
+    .print-table {
+
+        width:
+            100%;
+
+        border-collapse:
+            collapse;
+
+        table-layout:
+            fixed;
+
+        font-size:
+            11px;
+    }
+
+
+    .print-table th {
+
+        border:
+            1px solid black;
+
+        padding:
+            6px 3px;
+
+        text-align:
+            center;
+
+        font-weight:
+            800;
+
+        background:
+            #eeeeee;
+    }
+
+
+    .print-table td {
+
+        border:
+            1px solid black;
+
+        padding:
+            5px 3px;
+
+        text-align:
+            center;
+
+        height:
+            30px;
+    }
+
+
+    .print-question {
+
+        width:
+            70px;
+
+        font-weight:
+            800;
+    }
+
+
+    .print-bubble {
+
+        width:
+            18px;
+
+        height:
+            18px;
+
+        border:
+            1.5px solid black;
+
+        border-radius:
+            50%;
+
+        display:
+            inline-flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+    }
+
+
+    /*
+       User's answer:
+       blue/gray-looking fill is represented
+       in print using solid black.
+    */
+
+    .print-bubble.user-answer {
+
+        background:
+            black;
+
+        border-color:
+            black;
+    }
+
+
+    .print-bubble.user-answer::after {
+
+        content:
+            "";
+
+        width:
+            6px;
+
+        height:
+            6px;
+
+        background:
+            white;
+
+        border-radius:
+            50%;
+    }
+
+
+    /*
+       Correct answer:
+       double-circle style for easy
+       recognition on paper.
+    */
+
+    .correct-cell {
+
+        background:
+            #eeeeee;
+    }
+
+
+    .print-bubble.correct-answer {
+
+        border:
+            3px solid black;
+
+        position:
+            relative;
+    }
+
+
+    .print-bubble.correct-answer::after {
+
+        content:
+            "";
+
+        width:
+            8px;
+
+        height:
+            8px;
+
+        background:
+            black;
+
+        border-radius:
+            50%;
+    }
+
+
+    /*
+       If user's answer is also correct,
+       use a bold filled circle.
+    */
+
+    .print-bubble.user-correct {
+
+        background:
+            black;
+
+        border:
+            3px solid black;
+    }
+
+
+    .print-bubble.user-correct::after {
+
+        content:
+            "";
+
+        width:
+            7px;
+
+        height:
+            7px;
+
+        background:
+            white;
+
+        border-radius:
+            50%;
+    }
+
+
+    .print-legend {
+
+        margin-top:
+            15px;
+
+        font-size:
+            11px;
+
+        display:
+            flex;
+
+        justify-content:
+            center;
+
+        gap:
+            25px;
+
+        flex-wrap:
+            wrap;
+    }
+
+
+    .legend-item {
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            5px;
+    }
+
+
+    .legend-circle {
+
+        width:
+            15px;
+
+        height:
+            15px;
+
+        border:
+            1.5px solid black;
+
+        border-radius:
+            50%;
+
+        display:
+            inline-block;
+    }
+
+
+    .legend-user {
+
+        background:
+            black;
+    }
+
+
+    .legend-correct {
+
+        border:
+            3px solid black;
+    }
+
+
+    .print-footer {
+
+        margin-top:
+            15px;
+
+        border-top:
+            1px solid black;
+
+        padding-top:
+            8px;
+
+        display:
+            flex;
+
+        justify-content:
+            space-between;
+
+        font-size:
+            10px;
+    }
+
+}
+
+
+/*
+   The print sheet should never be
+   visible during normal browsing.
+*/
+
+#printSheet {
+
+    display:
+        none;
 }
 
 </style>
@@ -866,7 +1372,7 @@ h1 {
 
 
 <!-- =========================================================
-     HEADER
+     NORMAL HEADER
 ========================================================= -->
 
 <header>
@@ -895,11 +1401,36 @@ h1 {
 
 
 <!-- =========================================================
-     MAIN
+     NORMAL WEBSITE
 ========================================================= -->
 
 <div class="container">
 
+
+    <!-- CHAPTER NAME -->
+
+    <div class="chapter-box">
+
+        <label
+            class="chapter-label"
+            for="chapterName"
+        >
+            Chapter Name
+        </label>
+
+
+        <input
+            id="chapterName"
+            class="chapter-input"
+            type="text"
+            placeholder="Enter chapter name..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- INSTRUCTIONS -->
 
     <div class="instructions">
 
@@ -911,21 +1442,29 @@ h1 {
 
         <br><br>
 
-        When you are finished, click
+        When finished, click
         <strong>Check Answers</strong> and enter the
-        answer key for only the questions you completed.
+        answer key for the questions you completed.
 
         <br><br>
 
         Example:
-        <strong>31-40: ABCDBCADEA</strong>
+
+        <strong>
+            31-40: ABCDBCDEAA
+        </strong>
+
+        <br><br>
+
+        After checking your answers, use
+        <strong>Print Answer Sheet</strong>
+        at the bottom to create a clean OMR-style
+        record containing only the questions you checked.
 
     </div>
 
 
-    <!-- =====================================================
-         ANSWER SHEET
-    ===================================================== -->
+    <!-- ANSWER SHEET -->
 
     <div class="sheet">
 
@@ -949,9 +1488,7 @@ h1 {
     </div>
 
 
-    <!-- =====================================================
-         CONTROLS
-    ===================================================== -->
+    <!-- CONTROLS -->
 
     <div class="controls">
 
@@ -989,9 +1526,7 @@ h1 {
     </div>
 
 
-    <!-- =====================================================
-         ANSWER KEY PANEL
-    ===================================================== -->
+    <!-- ANSWER KEY -->
 
     <div
         class="answer-key-panel"
@@ -1005,9 +1540,11 @@ h1 {
 
         <p>
 
-            You can check <strong>any range of questions</strong>.
-            You do not need to provide answers for questions
-            you did not study.
+            Enter the correct answers for
+            <strong>any ranges you completed</strong>.
+
+            You do not need to enter answers for
+            questions you did not study.
 
         </p>
 
@@ -1019,10 +1556,6 @@ h1 {
 
 31-40: ABCDBCDEAA
 
-or
-
-31-40 ABCDBCDEAA
-
 or multiple ranges:
 
 5-10: BACDAB
@@ -1033,32 +1566,30 @@ or multiple ranges:
 
         <div class="example">
 
-            <strong>Range format:</strong><br>
+            <strong>Example:</strong><br>
 
             31-40: ABCDEABCDE
 
             <br><br>
 
-            Question 31 = A<br>
-            Question 32 = B<br>
-            Question 33 = C<br>
-            Question 34 = D<br>
-            Question 35 = E<br>
-            Question 36 = A<br>
-            Question 37 = B<br>
-            Question 38 = C<br>
-            Question 39 = D<br>
-            Question 40 = E
-
-            <br><br>
-
-            You can enter multiple ranges:
+            This means:
 
             <br>
 
-            5-10: BACDAB<br>
-            31-40: ABCDEABCDE<br>
-            71-75: CDBAA
+            31 = A<br>
+            32 = B<br>
+            33 = C<br>
+            34 = D<br>
+            35 = E<br>
+            36 = A<br>
+            37 = B<br>
+            38 = C<br>
+            39 = D<br>
+            40 = E
+
+            <br><br>
+
+            You can enter as many ranges as you want.
 
         </div>
 
@@ -1074,6 +1605,7 @@ or multiple ranges:
                 margin-top:15px;
                 display:flex;
                 gap:10px;
+                flex-wrap:wrap;
             "
         >
 
@@ -1097,9 +1629,7 @@ or multiple ranges:
     </div>
 
 
-    <!-- =====================================================
-         RESULTS
-    ===================================================== -->
+    <!-- RESULTS -->
 
     <div
         class="results"
@@ -1201,6 +1731,7 @@ or multiple ranges:
                     Review
                 </h3>
 
+
                 <div
                     class="review-grid"
                     id="reviewGrid"
@@ -1209,7 +1740,25 @@ or multiple ranges:
             </div>
 
 
-            <div style="margin-top:22px;">
+            <!-- PRINT BUTTON -->
+
+            <div
+                style="
+                    margin-top:25px;
+                    display:flex;
+                    justify-content:center;
+                    gap:10px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <button
+                    class="btn btn-primary"
+                    onclick="printAnswerSheet()"
+                >
+                    🖨 Print Answer Sheet
+                </button>
+
 
                 <button
                     class="btn"
@@ -1221,6 +1770,105 @@ or multiple ranges:
             </div>
 
         </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SPECIAL PRINT SHEET
+
+     This is hidden during normal use and becomes the
+     ONLY visible content when the browser prints.
+========================================================= -->
+
+<div id="printSheet">
+
+    <div class="print-title">
+        MCQ ANSWER SHEET
+    </div>
+
+
+    <div
+        class="print-chapter"
+        id="printChapter"
+    >
+        Chapter
+    </div>
+
+
+    <div class="print-subtitle">
+
+        Answer Record
+
+    </div>
+
+
+    <table class="print-table">
+
+        <thead>
+
+            <tr>
+
+                <th
+                    class="print-question"
+                >
+                    Question
+                </th>
+
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody
+            id="printTableBody"
+        >
+        </tbody>
+
+    </table>
+
+
+    <div class="print-legend">
+
+        <div class="legend-item">
+
+            <span
+                class="legend-circle legend-user"
+            ></span>
+
+            Your Answer
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="legend-circle legend-correct"
+            ></span>
+
+            Correct Answer
+
+        </div>
+
+    </div>
+
+
+    <div class="print-footer">
+
+        <span>
+            MCQ Answer Sheet
+        </span>
+
+        <span id="printDate"></span>
 
     </div>
 
@@ -1250,15 +1898,24 @@ let answers =
 let lastQuestion = null;
 
 
+/*
+   Store the answer key ranges that were most recently
+   checked. This is what determines which questions appear
+   on the printed sheet.
+*/
+
+let currentAnswerKey = {};
+
+
 /* =========================================================
-   LOAD SAVED ANSWERS
+   LOAD ANSWERS
 ========================================================= */
 
 function loadAnswers() {
 
     const saved =
         localStorage.getItem(
-            "mcq_answer_sheet_v2"
+            "mcq_answer_sheet_v3"
         );
 
 
@@ -1281,7 +1938,9 @@ function loadAnswers() {
 
         }
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.log(
             "Saved answers could not be loaded."
@@ -1293,13 +1952,13 @@ function loadAnswers() {
 
 
 /* =========================================================
-   SAVE
+   SAVE ANSWERS
 ========================================================= */
 
 function saveAnswers() {
 
     localStorage.setItem(
-        "mcq_answer_sheet_v2",
+        "mcq_answer_sheet_v3",
         JSON.stringify(answers)
     );
 
@@ -1307,7 +1966,47 @@ function saveAnswers() {
 
 
 /* =========================================================
-   CREATE SHEET
+   CHAPTER NAME SAVE
+========================================================= */
+
+function loadChapterName() {
+
+    const saved =
+        localStorage.getItem(
+            "mcq_chapter_name"
+        );
+
+
+    if (saved) {
+
+        document.getElementById(
+            "chapterName"
+        ).value =
+            saved;
+
+    }
+
+}
+
+
+function saveChapterName() {
+
+    const value =
+        document.getElementById(
+            "chapterName"
+        ).value;
+
+
+    localStorage.setItem(
+        "mcq_chapter_name",
+        value
+    );
+
+}
+
+
+/* =========================================================
+   CREATE ANSWER SHEET
 ========================================================= */
 
 function createSheet() {
@@ -1623,14 +2322,14 @@ function openAnswerKey() {
     ).focus();
 
 
-    window.scrollTo({
-        top:
-            document.getElementById(
-                "answerKeyPanel"
-            ).offsetTop - 80,
-
+    document.getElementById(
+        "answerKeyPanel"
+    ).scrollIntoView({
         behavior:
-            "smooth"
+            "smooth",
+
+        block:
+            "center"
     });
 
 }
@@ -1651,7 +2350,7 @@ function closeAnswerKey() {
 
 
 /* =========================================================
-   SHOW ERROR
+   ERROR
 ========================================================= */
 
 function showError(
@@ -1696,22 +2395,6 @@ function clearError() {
 
 /* =========================================================
    PARSE RANGE ANSWER KEY
-=========================================================
-
-   Supported:
-
-   31-40: ABCDEABCDE
-
-   31-40 ABCDEABCDE
-
-   31–40: ABCDEABCDE
-
-   Multiple ranges:
-
-   5-10: BACDAB
-   31-40: ABCDEABCDE
-   71-75: CDBAA
-
 ========================================================= */
 
 function parseRangeAnswerKey(
@@ -1723,10 +2406,6 @@ function parseRangeAnswerKey(
 
     const key = {};
 
-
-    /*
-       Normalize the text.
-    */
 
     let text =
         input
@@ -1741,15 +2420,6 @@ function parseRangeAnswerKey(
             );
 
 
-    /*
-       Split into lines.
-
-       This makes it easy to enter:
-
-       31-40: ABCDEABCDE
-       71-75: CDBAA
-    */
-
     const lines =
         text
             .split(/\n/)
@@ -1762,11 +2432,6 @@ function parseRangeAnswerKey(
                     line.length > 0
             );
 
-
-    /*
-       Also allow semicolon-separated
-       ranges on one line.
-    */
 
     const expandedLines = [];
 
@@ -1795,23 +2460,9 @@ function parseRangeAnswerKey(
     );
 
 
-    /*
-       Parse every range.
-    */
-
     for (
         const line of expandedLines
     ) {
-
-        /*
-           Expected:
-
-           31-40: ABCDEABCDE
-
-           or
-
-           31-40 ABCDEABCDE
-        */
 
         const match =
             line.match(
@@ -1848,10 +2499,6 @@ function parseRangeAnswerKey(
             match[3];
 
 
-        /*
-           Validate question numbers.
-        */
-
         if (
             start < 1 ||
             end > TOTAL_QUESTIONS ||
@@ -1867,10 +2514,6 @@ function parseRangeAnswerKey(
         }
 
 
-        /*
-           Expected number of answers.
-        */
-
         const expectedLength =
             end - start + 1;
 
@@ -1881,17 +2524,13 @@ function parseRangeAnswerKey(
         ) {
 
             showError(
-                `Range ${start}-${end} contains ${expectedLength} questions, but you entered ${sequence.length} answers.\n\nPlease enter exactly ${expectedLength} answers.`
+                `Range ${start}-${end} contains ${expectedLength} questions, but you entered ${sequence.length} answers.`
             );
 
             return null;
 
         }
 
-
-        /*
-           Validate A-E.
-        */
 
         for (
             let i = 0;
@@ -1977,17 +2616,25 @@ function checkAnswers() {
     if (!key) return;
 
 
-    const keyQuestions =
-        Object.keys(key)
-            .map(
-                Number
-            );
+    /*
+       Save this key for printing.
+    */
+
+    currentAnswerKey =
+        key;
 
 
     /*
-       Check only questions that
-       appear in the answer key.
+       Also save it locally.
     */
+
+    localStorage.setItem(
+        "mcq_answer_key",
+        JSON.stringify(
+            currentAnswerKey
+        )
+    );
+
 
     let correct = 0;
 
@@ -1996,117 +2643,121 @@ function checkAnswers() {
     let unanswered = 0;
 
 
+    const questions =
+        Object.keys(key)
+            .map(Number)
+            .sort(
+                (a,b) =>
+                    a - b
+            );
+
+
     const results = [];
 
 
-    keyQuestions
-        .sort(
-            (a,b) =>
-                a - b
-        )
-        .forEach(
-            questionNumber => {
+    questions.forEach(
+        questionNumber => {
 
-                const index =
-                    questionNumber - 1;
+            const index =
+                questionNumber - 1;
 
 
-                const correctLetter =
-                    key[
-                        questionNumber
-                    ];
+            const correctLetter =
+                key[
+                    questionNumber
+                ];
 
 
-                const correctIndex =
-                    correctLetter.charCodeAt(0)
-                    - 65;
+            const correctIndex =
+                correctLetter.charCodeAt(0)
+                - 65;
 
 
-                const userAnswer =
-                    answers[index];
+            const userAnswer =
+                answers[index];
 
 
-                if (
-                    userAnswer === null
-                ) {
+            if (
+                userAnswer === null
+            ) {
 
-                    unanswered++;
-
-
-                    results.push({
-                        number:
-                            questionNumber,
-
-                        status:
-                            "unanswered",
-
-                        user:
-                            null,
-
-                        correct:
-                            correctIndex
-                    });
-
-                }
-
-                else if (
-                    userAnswer ===
-                    correctIndex
-                ) {
-
-                    correct++;
+                unanswered++;
 
 
-                    results.push({
-                        number:
-                            questionNumber,
+                results.push({
+                    number:
+                        questionNumber,
 
-                        status:
-                            "correct",
+                    status:
+                        "unanswered",
 
-                        user:
-                            userAnswer,
+                    user:
+                        null,
 
-                        correct:
-                            correctIndex
-                    });
-
-                }
-
-                else {
-
-                    incorrect++;
-
-
-                    results.push({
-                        number:
-                            questionNumber,
-
-                        status:
-                            "incorrect",
-
-                        user:
-                            userAnswer,
-
-                        correct:
-                            correctIndex
-                    });
-
-                }
+                    correct:
+                        correctIndex
+                });
 
             }
-        );
+
+            else if (
+                userAnswer ===
+                correctIndex
+            ) {
+
+                correct++;
 
 
-    const totalChecked =
-        keyQuestions.length;
+                results.push({
+                    number:
+                        questionNumber,
+
+                    status:
+                        "correct",
+
+                    user:
+                        userAnswer,
+
+                    correct:
+                        correctIndex
+                });
+
+            }
+
+            else {
+
+                incorrect++;
+
+
+                results.push({
+                    number:
+                        questionNumber,
+
+                    status:
+                        "incorrect",
+
+                    user:
+                        userAnswer,
+
+                    correct:
+                        correctIndex
+                });
+
+            }
+
+        }
+    );
+
+
+    const total =
+        questions.length;
 
 
     const percentage =
         Math.round(
             (
                 correct /
-                totalChecked
+                total
             ) * 100
         );
 
@@ -2115,7 +2766,7 @@ function checkAnswers() {
         correct,
         incorrect,
         unanswered,
-        totalChecked,
+        total,
         percentage,
         results
     );
@@ -2131,7 +2782,7 @@ function displayResults(
     correct,
     incorrect,
     unanswered,
-    totalChecked,
+    total,
     percentage,
     results
 ) {
@@ -2145,7 +2796,7 @@ function displayResults(
     document.getElementById(
         "scoreDescription"
     ).textContent =
-        `Score calculated from ${totalChecked} question${totalChecked === 1 ? "" : "s"}.`;
+        `Score calculated from ${total} question${total === 1 ? "" : "s"}.`;
 
 
     document.getElementById(
@@ -2169,7 +2820,7 @@ function displayResults(
     document.getElementById(
         "questionsChecked"
     ).textContent =
-        totalChecked;
+        total;
 
 
     const grid =
@@ -2277,29 +2928,403 @@ function hideResults() {
 
 
 /* =========================================================
-   KEYBOARD SHORTCUTS
-=========================================================
-
-   A = select A
-   B = select B
-   C = select C
-   D = select D
-   E = select E
-
-   This is useful if you are answering
-   many questions rapidly.
-
+   PREPARE PRINT SHEET
 ========================================================= */
+
+function preparePrintSheet() {
+
+    /*
+       Get chapter name.
+    */
+
+    let chapter =
+        document.getElementById(
+            "chapterName"
+        ).value.trim();
+
+
+    if (!chapter) {
+
+        chapter =
+            "Untitled Chapter";
+
+    }
+
+
+    document.getElementById(
+        "printChapter"
+    ).textContent =
+        chapter;
+
+
+    /*
+       Get the questions that have
+       an answer key.
+    */
+
+    const questions =
+        Object.keys(
+            currentAnswerKey
+        )
+        .map(Number)
+        .sort(
+            (a,b) =>
+                a - b
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "printTableBody"
+        );
+
+
+    tbody.innerHTML =
+        "";
+
+
+    /*
+       Create one printed row per
+       checked question.
+    */
+
+    questions.forEach(
+        questionNumber => {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            /*
+               Question number.
+            */
+
+            const numberCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            numberCell.className =
+                "print-question";
+
+
+            numberCell.textContent =
+                questionNumber;
+
+
+            row.appendChild(
+                numberCell
+            );
+
+
+            /*
+               A-E bubbles.
+            */
+
+            const correctLetter =
+                currentAnswerKey[
+                    questionNumber
+                ];
+
+
+            const correctIndex =
+                correctLetter.charCodeAt(0)
+                - 65;
+
+
+            const userAnswer =
+                answers[
+                    questionNumber - 1
+                ];
+
+
+            for (
+                let option = 0;
+                option < 5;
+                option++
+            ) {
+
+                const cell =
+                    document.createElement(
+                        "td"
+                    );
+
+
+                /*
+                   Highlight the correct
+                   answer's cell.
+                */
+
+                if (
+                    option ===
+                    correctIndex
+                ) {
+
+                    cell.classList.add(
+                        "correct-cell"
+                    );
+
+                }
+
+
+                const bubble =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                bubble.className =
+                    "print-bubble";
+
+
+                /*
+                   User's selected answer.
+                */
+
+                if (
+                    userAnswer === option
+                ) {
+
+                    if (
+                        userAnswer ===
+                        correctIndex
+                    ) {
+
+                        bubble.classList.add(
+                            "user-correct"
+                        );
+
+                    }
+
+                    else {
+
+                        bubble.classList.add(
+                            "user-answer"
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                   Correct answer.
+
+                   If user answered incorrectly,
+                   the correct bubble gets the
+                   double-circle/filled center.
+                */
+
+                else if (
+                    option ===
+                    correctIndex
+                ) {
+
+                    bubble.classList.add(
+                        "correct-answer"
+                    );
+
+                }
+
+
+                cell.appendChild(
+                    bubble
+                );
+
+
+                row.appendChild(
+                    cell
+                );
+
+            }
+
+
+            tbody.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    /*
+       Date.
+    */
+
+    const today =
+        new Date();
+
+
+    document.getElementById(
+        "printDate"
+    ).textContent =
+        today.toLocaleDateString(
+            undefined,
+            {
+                year:
+                    "numeric",
+
+                month:
+                    "short",
+
+                day:
+                    "numeric"
+            }
+        );
+
+}
 
 
 /* =========================================================
-   INITIALIZE
+   PRINT
+========================================================= */
+
+function printAnswerSheet() {
+
+    /*
+       Make sure an answer key exists.
+    */
+
+    if (
+        Object.keys(
+            currentAnswerKey
+        ).length === 0
+    ) {
+
+        /*
+           Try loading the saved key.
+        */
+
+        const saved =
+            localStorage.getItem(
+                "mcq_answer_key"
+            );
+
+
+        if (saved) {
+
+            try {
+
+                currentAnswerKey =
+                    JSON.parse(
+                        saved
+                    );
+
+            }
+
+            catch (error) {
+
+                currentAnswerKey =
+                    {};
+
+            }
+
+        }
+
+    }
+
+
+    if (
+        Object.keys(
+            currentAnswerKey
+        ).length === 0
+    ) {
+
+        alert(
+            "Please check your answers first so the website knows which questions to print."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Save chapter name.
+    */
+
+    saveChapterName();
+
+
+    /*
+       Build the print version.
+    */
+
+    preparePrintSheet();
+
+
+    /*
+       Give the browser a moment to render
+       the print sheet.
+    */
+
+    setTimeout(
+        function() {
+
+            window.print();
+
+        },
+        150
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
 ========================================================= */
 
 loadAnswers();
 
+loadChapterName();
+
 createSheet();
 
+
+/*
+   Save chapter name whenever it changes.
+*/
+
+document.getElementById(
+    "chapterName"
+).addEventListener(
+    "input",
+    saveChapterName
+);
+
+
+/*
+   Load previously saved answer key.
+*/
+
+const savedKey =
+    localStorage.getItem(
+        "mcq_answer_key"
+    );
+
+
+if (savedKey) {
+
+    try {
+
+        currentAnswerKey =
+            JSON.parse(
+                savedKey
+            );
+
+    }
+
+    catch (error) {
+
+        currentAnswerKey =
+            {};
+
+    }
+
+}
 
 </script>
 
