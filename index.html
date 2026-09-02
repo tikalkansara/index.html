@@ -2397,78 +2397,41 @@ function clearError() {
    PARSE RANGE ANSWER KEY
 ========================================================= */
 
-function parseRangeAnswerKey(
-    input
-) {
+function parseRangeAnswerKey(input) {
 
     clearError();
 
-
     const key = {};
 
+    let text = input
+        .toUpperCase()
+        .replace(/–/g, "-")
+        .replace(/—/g, "-");
 
-    let text =
-        input
-            .toUpperCase()
-            .replace(
-                /–/g,
-                "-"
-            )
-            .replace(
-                /—/g,
-                "-"
-            );
-
-
-    const lines =
-        text
-            .split(/\n/)
-            .map(
-                line =>
-                    line.trim()
-            )
-            .filter(
-                line =>
-                    line.length > 0
-            );
-
+    const lines = text
+        .split(/\n/)
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
 
     const expandedLines = [];
 
+    lines.forEach(line => {
 
-    lines.forEach(
-        line => {
+        const parts = line
+            .split(";")
+            .map(part => part.trim())
+            .filter(part => part.length > 0);
 
-            const parts =
-                line
-                    .split(";")
-                    .map(
-                        part =>
-                            part.trim()
-                    )
-                    .filter(
-                        part =>
-                            part.length > 0
-                    );
+        expandedLines.push(...parts);
+
+    });
 
 
-            expandedLines.push(
-                ...parts
-            );
+    for (const line of expandedLines) {
 
-        }
-    );
-
-
-    for (
-        const line of expandedLines
-    ) {
-
-        const match =
-            line.match(
-                /^\s*(\d+)\s*-\s*(\d+)\s*(?::|\s)\s*([A-Z]+)\s*$/
-            );
-
+        const match = line.match(
+            /^\s*(\d+)\s*-\s*(\d+)\s*(?::|\s)\s*([A-E\s]+)\s*$/
+        );
 
         if (!match) {
 
@@ -2481,22 +2444,23 @@ function parseRangeAnswerKey(
         }
 
 
-        const start =
-            parseInt(
-                match[1],
-                10
-            );
+        const start = parseInt(match[1], 10);
+        const end = parseInt(match[2], 10);
 
+        /*
+           Remove accidental spaces inside the answer sequence.
 
-        const end =
-            parseInt(
-                match[2],
-                10
-            );
+           This allows both:
 
+           CBABBADBCBCDBDBDBCACCBAC
 
-        const sequence =
-            match[3];
+           and
+
+           CBABB ADBCB CDBDB DB CACCBAC
+        */
+
+        const sequence = match[3]
+            .replace(/\s/g, "");
 
 
         if (
@@ -2518,10 +2482,7 @@ function parseRangeAnswerKey(
             end - start + 1;
 
 
-        if (
-            sequence.length !==
-            expectedLength
-        ) {
+        if (sequence.length !== expectedLength) {
 
             showError(
                 `Range ${start}-${end} contains ${expectedLength} questions, but you entered ${sequence.length} answers.`
@@ -2532,27 +2493,12 @@ function parseRangeAnswerKey(
         }
 
 
-        for (
-            let i = 0;
-            i < sequence.length;
-            i++
-        ) {
+        for (let i = 0; i < sequence.length; i++) {
 
-            const letter =
-                sequence[i];
+            const letter = sequence[i];
 
 
-            if (
-                ![
-                    "A",
-                    "B",
-                    "C",
-                    "D",
-                    "E"
-                ].includes(
-                    letter
-                )
-            ) {
+            if (!["A", "B", "C", "D", "E"].includes(letter)) {
 
                 showError(
                     `Invalid answer "${letter}" in range ${start}-${end}.\n\nOnly A, B, C, D, or E are allowed.`
@@ -2563,14 +2509,9 @@ function parseRangeAnswerKey(
             }
 
 
-            const questionNumber =
-                start + i;
+            const questionNumber = start + i;
 
-
-            key[
-                questionNumber
-            ] =
-                letter;
+            key[questionNumber] = letter;
 
         }
 
@@ -2578,10 +2519,7 @@ function parseRangeAnswerKey(
 
 
     return key;
-
 }
-
-
 /* =========================================================
    CHECK ANSWERS
 ========================================================= */
