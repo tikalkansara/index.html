@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,6 +11,7 @@
 >
 
 <title>MCQ Answer Sheet</title>
+
 
 <style>
 
@@ -171,11 +173,14 @@ h1 {
     border:
         1px solid var(--border);
 
-    border-radius: 8px;
+    border-radius:
+        8px;
 
-    font-size: 14px;
+    font-size:
+        14px;
 
-    font-weight: 600;
+    font-weight:
+        600;
 
 }
 
@@ -186,7 +191,8 @@ h1 {
 
 .container {
 
-    max-width: 1100px;
+    max-width:
+        1100px;
 
     margin:
         0 auto;
@@ -223,11 +229,14 @@ h1 {
 
 .chapter-label {
 
-    display: block;
+    display:
+        block;
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    font-weight: 700;
+    font-weight:
+        700;
 
     color:
         var(--muted);
@@ -246,7 +255,8 @@ h1 {
 
 .chapter-input {
 
-    width: 100%;
+    width:
+        100%;
 
     border:
         1px solid var(--border);
@@ -263,7 +273,8 @@ h1 {
     font-weight:
         600;
 
-    outline: none;
+    outline:
+        none;
 
 }
 
@@ -348,7 +359,8 @@ h1 {
 
 .sheet-header {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         100px
@@ -379,7 +391,8 @@ h1 {
 
 .answer-row {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         100px
@@ -1257,6 +1270,10 @@ h1 {
     }
 
 
+    /*
+       Hide normal website.
+    */
+
     body > header,
     body > .container {
 
@@ -1265,6 +1282,10 @@ h1 {
 
     }
 
+
+    /*
+       Show ONLY the print sheet.
+    */
 
     #printSheet {
 
@@ -1276,6 +1297,10 @@ h1 {
 
     }
 
+
+    /* =====================================================
+       PRINT HEADER
+    ===================================================== */
 
     .print-title {
 
@@ -1327,6 +1352,10 @@ h1 {
 
     }
 
+
+    /* =====================================================
+       PRINT TABLE
+    ===================================================== */
 
     .print-table {
 
@@ -1393,6 +1422,10 @@ h1 {
     }
 
 
+    /* =====================================================
+       PRINT BUBBLES
+    ===================================================== */
+
     .print-bubble {
 
         width:
@@ -1416,39 +1449,66 @@ h1 {
         justify-content:
             center;
 
+        position:
+            relative;
+
     }
 
+
+    /*
+       CORRECT ANSWER
+
+       Solid black filled bubble.
+    */
+
+    .print-bubble.correct-answer {
+
+        background:
+            black;
+
+        border:
+            1.5px solid black;
+
+    }
+
+
+    /*
+       YOUR ANSWER
+
+       Double-ring circle.
+    */
 
     .print-bubble.user-answer {
 
         background:
-            black;
-
-        border-color:
-            black;
-
-    }
-
-
-    .print-bubble.user-answer::after {
-
-        content:
-            "";
-
-        width:
-            6px;
-
-        height:
-            6px;
-
-        background:
             white;
 
-        border-radius:
-            50%;
+        border:
+            4px double black;
 
     }
 
+
+    /*
+       YOUR ANSWER + CORRECT ANSWER
+
+       Double outer ring + black center.
+    */
+
+    .print-bubble.user-correct {
+
+        background:
+            black;
+
+        border:
+            4px double black;
+
+    }
+
+
+    /*
+       Lightly shade the correct-answer cell.
+    */
 
     .correct-cell {
 
@@ -1458,67 +1518,9 @@ h1 {
     }
 
 
-    .print-bubble.correct-answer {
-
-        border:
-            3px solid black;
-
-        position:
-            relative;
-
-    }
-
-
-    .print-bubble.correct-answer::after {
-
-        content:
-            "";
-
-        width:
-            8px;
-
-        height:
-            8px;
-
-        background:
-            black;
-
-        border-radius:
-            50%;
-
-    }
-
-
-    .print-bubble.user-correct {
-
-        background:
-            black;
-
-        border:
-            3px solid black;
-
-    }
-
-
-    .print-bubble.user-correct::after {
-
-        content:
-            "";
-
-        width:
-            7px;
-
-        height:
-            7px;
-
-        background:
-            white;
-
-        border-radius:
-            50%;
-
-    }
-
+    /* =====================================================
+       PRINT LEGEND
+    ===================================================== */
 
     .print-legend {
 
@@ -1565,9 +1567,6 @@ h1 {
         height:
             15px;
 
-        border:
-            1.5px solid black;
-
         border-radius:
             50%;
 
@@ -1577,21 +1576,54 @@ h1 {
     }
 
 
+    /*
+       Your answer legend.
+    */
+
     .legend-user {
+
+        background:
+            white;
+
+        border:
+            3px double black;
+
+    }
+
+
+    /*
+       Correct answer legend.
+    */
+
+    .legend-correct {
 
         background:
             black;
 
+        border:
+            1.5px solid black;
+
     }
 
 
-    .legend-correct {
+    /*
+       Correct + your answer legend.
+    */
+
+    .legend-both {
+
+        background:
+            black;
 
         border:
-            3px solid black;
+            3px double black;
 
     }
 
+
+    /* =====================================================
+       PRINT FOOTER
+    ===================================================== */
 
     .print-footer {
 
@@ -1619,7 +1651,7 @@ h1 {
 
 
 /* =========================================================
-   HIDDEN PRINT SHEET DURING NORMAL USE
+   HIDE PRINT SHEET DURING NORMAL USE
 ========================================================= */
 
 #printSheet {
@@ -1667,7 +1699,7 @@ h1 {
 
 
 <!-- =========================================================
-     MAIN
+     MAIN WEBSITE
 ========================================================= -->
 
 <div class="container">
@@ -1704,7 +1736,9 @@ h1 {
 
     <div class="instructions">
 
-        <strong>Blank MCQ Answer Sheet</strong>
+        <strong>
+            Blank MCQ Answer Sheet
+        </strong>
 
         <br>
 
@@ -1731,6 +1765,8 @@ h1 {
 
         Multiple ranges can be entered on separate lines:
 
+        <br>
+
         <strong>
             1-25: CBABBADBCBCDBDBDBCACCBAC
         </strong>
@@ -1743,14 +1779,14 @@ h1 {
 
         <br><br>
 
-        Spaces inside the answer sequence are ignored.
+        Spaces inside answer sequences are ignored.
 
         <br><br>
 
         After checking your answers, use
         <strong>Print Answer Sheet</strong>
-        to create a clean OMR-style record containing
-        only the questions included in your answer key.
+        to create an OMR-style record containing only
+        the questions included in your answer key.
 
     </div>
 
@@ -1826,7 +1862,7 @@ h1 {
 
 
     <!-- =====================================================
-         ANSWER KEY PANEL
+         ANSWER KEY
     ===================================================== -->
 
     <div
@@ -1867,7 +1903,9 @@ or multiple ranges:
 
         <div class="example">
 
-            <strong>Example:</strong>
+            <strong>
+                Example:
+            </strong>
 
             <br><br>
 
@@ -2184,6 +2222,10 @@ or multiple ranges:
     </table>
 
 
+    <!-- =====================================================
+         LEGEND
+    ===================================================== -->
+
     <div class="print-legend">
 
 
@@ -2209,8 +2251,23 @@ or multiple ranges:
         </div>
 
 
+        <div class="legend-item">
+
+            <span
+                class="legend-circle legend-both"
+            ></span>
+
+            Correct + Your Answer
+
+        </div>
+
+
     </div>
 
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
 
     <div class="print-footer">
 
@@ -2219,7 +2276,9 @@ or multiple ranges:
         </span>
 
 
-        <span id="printDate"></span>
+        <span
+            id="printDate"
+        ></span>
 
     </div>
 
@@ -2227,7 +2286,6 @@ or multiple ranges:
 
 
 <script>
-
 
 /* =========================================================
    CONFIGURATION
@@ -2248,11 +2306,6 @@ let answers =
 
 let lastQuestion = null;
 
-
-/*
-   This contains only the questions represented
-   in the most recently checked answer key.
-*/
 
 let currentAnswerKey = {};
 
@@ -2287,7 +2340,8 @@ function loadAnswers() {
             parsed.length === TOTAL_QUESTIONS
         ) {
 
-            answers = parsed;
+            answers =
+                parsed;
 
         }
 
@@ -2312,7 +2366,9 @@ function saveAnswers() {
 
     localStorage.setItem(
         "mcq_answer_sheet_v3",
-        JSON.stringify(answers)
+        JSON.stringify(
+            answers
+        )
     );
 
 }
@@ -2334,7 +2390,8 @@ function loadChapterName() {
 
         document.getElementById(
             "chapterName"
-        ).value = saved;
+        ).value =
+            saved;
 
     }
 
@@ -2369,7 +2426,8 @@ function createSheet() {
         );
 
 
-    sheet.innerHTML = "";
+    sheet.innerHTML =
+        "";
 
 
     for (
@@ -2757,19 +2815,6 @@ function clearError() {
 
 /* =========================================================
    PARSE RANGE ANSWER KEY
-
-   IMPORTANT FIX:
-
-   - Spaces inside answer sequences are ignored.
-   - Multiple ranges are supported.
-   - Each range is mapped independently.
-   - A valid range such as 26-30: ABCCD correctly
-     creates:
-         26 = A
-         27 = B
-         28 = C
-         29 = C
-         30 = D
 ========================================================= */
 
 function parseRangeAnswerKey(
@@ -2783,7 +2828,7 @@ function parseRangeAnswerKey(
 
 
     /*
-       Normalize capitalization and dash characters.
+       Normalize uppercase and dash characters.
     */
 
     let text =
@@ -2800,7 +2845,7 @@ function parseRangeAnswerKey(
 
 
     /*
-       Split into individual lines.
+       Split input into lines.
     */
 
     const lines =
@@ -2817,7 +2862,7 @@ function parseRangeAnswerKey(
 
 
     /*
-       Allow semicolon-separated ranges as well.
+       Allow semicolon-separated ranges.
     */
 
     const expandedLines = [];
@@ -2848,7 +2893,7 @@ function parseRangeAnswerKey(
 
 
     /*
-       Process every range.
+       Process each range independently.
     */
 
     for (
@@ -2857,21 +2902,16 @@ function parseRangeAnswerKey(
 
 
         /*
-           IMPORTANT:
-           Capture A-E plus whitespace.
+           The answer sequence accepts
+           A-E and spaces.
 
-           This means spaces such as:
+           Example:
 
            ABCCD
 
            or
 
            A B C C D
-
-           are both accepted.
-
-           We intentionally do NOT accept
-           other letters.
         */
 
         const match =
@@ -2906,8 +2946,8 @@ function parseRangeAnswerKey(
 
 
         /*
-           Remove ALL whitespace from the
-           answer sequence.
+           Remove all spaces from the answer
+           sequence.
         */
 
         const sequence =
@@ -2919,7 +2959,7 @@ function parseRangeAnswerKey(
 
 
         /*
-           Validate range.
+           Validate question range.
         */
 
         if (
@@ -2938,8 +2978,7 @@ function parseRangeAnswerKey(
 
 
         /*
-           Number of answers must exactly match
-           number of questions.
+           Validate answer count.
         */
 
         const expectedLength =
@@ -2961,7 +3000,7 @@ function parseRangeAnswerKey(
 
 
         /*
-           Map every answer to its question number.
+           Map each answer to its question.
         */
 
         for (
@@ -2973,13 +3012,6 @@ function parseRangeAnswerKey(
             const letter =
                 sequence[i];
 
-
-            /*
-               This is technically redundant because
-               the regex already restricts the sequence
-               to A-E, but it provides an additional
-               safety check.
-            */
 
             if (
                 ![
@@ -3015,10 +3047,6 @@ function parseRangeAnswerKey(
 
     }
 
-
-    /*
-       Return the complete answer key.
-    */
 
     return key;
 
@@ -3064,11 +3092,7 @@ function checkAnswers() {
 
 
     /*
-       IMPORTANT FIX:
-
-       Replace the previous answer key entirely.
-
-       This prevents old ranges from remaining in memory.
+       Replace the previous answer key completely.
     */
 
     currentAnswerKey =
@@ -3095,7 +3119,7 @@ function checkAnswers() {
 
 
     /*
-       Get all question numbers in numerical order.
+       Get checked questions in order.
     */
 
     const questions =
@@ -3404,7 +3428,7 @@ function hideResults() {
 function preparePrintSheet() {
 
     /*
-       Chapter name.
+       Get chapter name.
     */
 
     let chapter =
@@ -3428,7 +3452,7 @@ function preparePrintSheet() {
 
 
     /*
-       Only print questions that exist
+       Only print questions included
        in the current answer key.
     */
 
@@ -3454,7 +3478,7 @@ function preparePrintSheet() {
 
 
     /*
-       Create one row per checked question.
+       Create one row per question.
     */
 
     questions.forEach(
@@ -3505,7 +3529,7 @@ function preparePrintSheet() {
 
 
             /*
-               User's selected answer.
+               User answer.
             */
 
             const userAnswer =
@@ -3531,8 +3555,7 @@ function preparePrintSheet() {
 
 
                 /*
-                   Highlight the correct answer's
-                   column.
+                   Shade correct-answer cell.
                 */
 
                 if (
@@ -3558,54 +3581,54 @@ function preparePrintSheet() {
 
 
                 /*
-                   User selected this answer.
+                   ==========================================
+                   USER ANSWER = CORRECT ANSWER
+                   ==========================================
+
+                   Double ring + black fill.
                 */
 
                 if (
-                    userAnswer ===
-                    option
+                    userAnswer === option &&
+                    userAnswer === correctIndex
                 ) {
 
-
-                    /*
-                       User answered correctly.
-                    */
-
-                    if (
-                        userAnswer ===
-                        correctIndex
-                    ) {
-
-                        bubble.classList.add(
-                            "user-correct"
-                        );
-
-                    }
-
-
-                    /*
-                       User answered incorrectly.
-                    */
-
-                    else {
-
-                        bubble.classList.add(
-                            "user-answer"
-                        );
-
-                    }
+                    bubble.classList.add(
+                        "user-correct"
+                    );
 
                 }
 
 
                 /*
-                   Correct answer that was
-                   not selected by the user.
+                   ==========================================
+                   USER ANSWER = INCORRECT
+                   ==========================================
+
+                   Double ring only.
                 */
 
                 else if (
-                    option ===
-                    correctIndex
+                    userAnswer === option
+                ) {
+
+                    bubble.classList.add(
+                        "user-answer"
+                    );
+
+                }
+
+
+                /*
+                   ==========================================
+                   CORRECT ANSWER
+                   ==========================================
+
+                   Solid black bubble.
+                */
+
+                else if (
+                    option === correctIndex
                 ) {
 
                     bubble.classList.add(
@@ -3614,6 +3637,10 @@ function preparePrintSheet() {
 
                 }
 
+
+                /*
+                   Otherwise leave bubble empty.
+                */
 
                 cell.appendChild(
                     bubble
@@ -3681,7 +3708,7 @@ function printAnswerSheet() {
 
 
         /*
-           Try loading the saved key.
+           Try loading saved answer key.
         */
 
         const saved =
@@ -3714,7 +3741,8 @@ function printAnswerSheet() {
 
 
     /*
-       Nothing to print.
+       If there is still no answer key,
+       there is nothing to print.
     */
 
     if (
@@ -3747,7 +3775,7 @@ function printAnswerSheet() {
 
 
     /*
-       Give browser time to render.
+       Allow browser to render before printing.
     */
 
     setTimeout(
@@ -3774,7 +3802,7 @@ createSheet();
 
 
 /*
-   Save chapter name whenever changed.
+   Save chapter name whenever it changes.
 */
 
 document.getElementById(
